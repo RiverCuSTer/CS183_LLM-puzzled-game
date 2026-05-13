@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
+  tags:
+  - Slot
+  - UISymbolSlot
+=======
   tags: []
+>>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   layers:
   - Default
   - TransparentFX
