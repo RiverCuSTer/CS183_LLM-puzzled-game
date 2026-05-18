@@ -122,7 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &66420921
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,16 +291,9 @@ MonoBehaviour:
   weightParent: {fileID: 978165256}
   weightPrefab: {fileID: 1216353314347303071, guid: b2403ab80f46ad84893ff463b948e0f5, type: 3}
   countText: {fileID: 0}
-  useScaledDisplayCount: 1
-  displayDivisor: 5
-  minDisplayCount: 1
-  keepZeroAsZero: 1
-  weightSize: {x: 36, y: 36}
-  weightScale: {x: 1, y: 1, z: 1}
   xSpacing: 18
   ySpacing: 12
   weightsPerRow: 5
-  invertY: 1
 --- !u!224 &66719453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1613,16 +1605,9 @@ MonoBehaviour:
   weightParent: {fileID: 810871893}
   weightPrefab: {fileID: 1216353314347303071, guid: b2403ab80f46ad84893ff463b948e0f5, type: 3}
   countText: {fileID: 0}
-  useScaledDisplayCount: 1
-  displayDivisor: 5
-  minDisplayCount: 1
-  keepZeroAsZero: 1
-  weightSize: {x: 36, y: 36}
-  weightScale: {x: 1, y: 1, z: 1}
   xSpacing: 18
   ySpacing: 12
   weightsPerRow: 5
-  invertY: 1
 --- !u!224 &247920910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1936,8 +1921,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292077926}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &301191127
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,7 +2013,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &363257169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,37 +2414,6 @@ MonoBehaviour:
   loop: 1
   duration: 3
   delayStart: 0.8
-  useCurve: 1
-  curveHeight: 30
-  startOffset: {x: 0, y: 0}
-  endOffset: {x: 0, y: 0}
-  motionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  useSineOffset: 0
-  sineAmplitude: 6
-  sineFrequency: 2
 --- !u!1 &435046003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,8 +2491,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435046003}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &443900318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2676,7 +2625,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443900318}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &459631499
 GameObject:
   m_ObjectHideFlags: 0
@@ -4502,8 +4450,6 @@ MonoBehaviour:
   perfectStar: {fileID: 613631997}
   failureReturnDelay: 1.2
   perfectStarDuration: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &712958764
 GameObject:
   m_ObjectHideFlags: 0
@@ -4565,7 +4511,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712958764}
   serializedVersion: 2
-<<<<<<< HEAD
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1025, y: -613, z: 0}
   m_LocalScale: {x: 1.960517, y: 1.960517, z: 1.960517}
@@ -4660,16 +4605,9 @@ MonoBehaviour:
   weightParent: {fileID: 858894919}
   weightPrefab: {fileID: 1216353314347303071, guid: b2403ab80f46ad84893ff463b948e0f5, type: 3}
   countText: {fileID: 0}
-  useScaledDisplayCount: 1
-  displayDivisor: 5
-  minDisplayCount: 1
-  keepZeroAsZero: 1
-  weightSize: {x: 36, y: 36}
-  weightScale: {x: 1, y: 1, z: 1}
   xSpacing: 18
   ySpacing: 12
   weightsPerRow: 5
-  invertY: 1
 --- !u!224 &762110388
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4754,14 +4692,11 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767990177}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-<<<<<<< HEAD
   m_Father: {fileID: 780117692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9735,10 +9670,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
-=======
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &806879377
 GameObject:
   m_ObjectHideFlags: 0
@@ -9774,11 +9705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: 3644, y: 610}
-=======
-  m_AnchoredPosition: {x: 0.00002861, y: -0.00046921}
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   m_SizeDelta: {x: 1920, y: 1365.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806879379
@@ -9819,7 +9746,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806879377}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &810871892
 GameObject:
   m_ObjectHideFlags: 0
@@ -9934,8 +9860,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &953559970
 GameObject:
   m_ObjectHideFlags: 0
@@ -9990,7 +9914,6 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   knowledgeMenu: {fileID: 0}
   settingsMenu: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &958305207
 GameObject:
   m_ObjectHideFlags: 0
@@ -10286,8 +10209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placedSymbolSize: {x: 200, y: 200}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &993999583
 GameObject:
   m_ObjectHideFlags: 0
@@ -10409,7 +10330,6 @@ RectTransform:
   m_AnchoredPosition: {x: -25.5452, y: -7.0451}
   m_SizeDelta: {x: 231.5268, y: 133.4182}
   m_Pivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
 --- !u!1 &1004089944
 GameObject:
   m_ObjectHideFlags: 0
@@ -10664,8 +10584,6 @@ RectTransform:
   m_AnchoredPosition: {x: 2889, y: 747}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1082220252
 GameObject:
   m_ObjectHideFlags: 0
@@ -10787,7 +10705,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082220252}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &1095954751
 GameObject:
   m_ObjectHideFlags: 0
@@ -11157,8 +11074,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211218616}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1230517211
 GameObject:
   m_ObjectHideFlags: 0
@@ -11175,11 +11090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< HEAD
   m_IsActive: 0
-=======
-  m_IsActive: 1
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!114 &1230517212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11212,7 +11123,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &1232942920
 GameObject:
   m_ObjectHideFlags: 0
@@ -11412,27 +11322,6 @@ MonoBehaviour:
   flowDuration: 1
   lineThickness: 8
   clearOldLinksBeforeBuild: 1
-  particleTypeCount: 5
-  particleColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  globalStartOffset: {x: 0, y: 0}
-  globalEndOffset: {x: 0, y: 0}
-  useCurvedFlow: 1
-  curveHeightMin: 20
-  curveHeightMax: 60
-  useRandomStartSpread: 1
-  startSpread: {x: 20, y: 20}
-  useRandomEndSpread: 0
-  endSpread: {x: 10, y: 10}
-  useSineMotion: 0
-  sineAmplitude: 5
-  sineFrequency: 2
-  minParticleDuration: 0.8
-  maxParticleDuration: 1.4
   particlesPerLink: 15
 --- !u!1 &1367483489
 GameObject:
@@ -12188,8 +12077,6 @@ RectTransform:
   m_AnchoredPosition: {x: 5755, y: 836.765}
   m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1550961482
 GameObject:
   m_ObjectHideFlags: 0
@@ -12311,7 +12198,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550961482}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &1595883152
 GameObject:
   m_ObjectHideFlags: 0
@@ -12580,8 +12466,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618611437}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1623402070
 GameObject:
   m_ObjectHideFlags: 0
@@ -12615,11 +12499,8 @@ RectTransform:
   m_Children:
   - {fileID: 806879378}
   - {fileID: 2107881846}
-<<<<<<< HEAD
   - {fileID: 599688314}
   - {fileID: 712958767}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12684,11 +12565,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-<<<<<<< HEAD
   m_VertexColorAlwaysGammaSpace: 1
-=======
-  m_VertexColorAlwaysGammaSpace: 0
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -12755,13 +12632,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: b6da3a4fd160ed54bb63c860517a2448, type: 3}
   m_Type: 0
-=======
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12899,7 +12771,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703663547}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &1717429363
 GameObject:
   m_ObjectHideFlags: 0
@@ -13413,8 +13284,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3397, y: 861}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1788475081
 GameObject:
   m_ObjectHideFlags: 0
@@ -13549,7 +13418,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788475081}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &1829094401
 GameObject:
   m_ObjectHideFlags: 0
@@ -14021,8 +13889,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &1900656890
 GameObject:
   m_ObjectHideFlags: 0
@@ -14157,7 +14023,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900656890}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &1904249482
 GameObject:
   m_ObjectHideFlags: 0
@@ -14926,7 +14791,7 @@ RectTransform:
   m_GameObject: {fileID: 2004933391}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.58842903, y: 0.47891265, z: 0.39170274}
+  m_LocalScale: {x: 0.55163497, y: 0.44208682, z: 0.39170274}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1595883153}
@@ -15472,8 +15337,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1 &2063402917
 GameObject:
   m_ObjectHideFlags: 0
@@ -15657,7 +15520,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-<<<<<<< HEAD
 --- !u!1 &2121835349
 GameObject:
   m_ObjectHideFlags: 0
@@ -15792,16 +15654,10 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121835349}
   m_CullTransparentMesh: 1
-=======
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 301191130}
-<<<<<<< HEAD
-=======
-  - {fileID: 712958767}
->>>>>>> 20f77262fc6f1b244e93d927548f79581f5fb049
   - {fileID: 1623402071}
   - {fileID: 1230517213}
