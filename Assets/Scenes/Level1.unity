@@ -829,7 +829,7 @@ MonoBehaviour:
   Panel_Part1: {fileID: 1498551805}
   Panel_Part2: {fileID: 1448589848}
   Panel_Part3: {fileID: 928451664}
-  startAtPart3ForTesting: 0
+  startAtPart3ForTesting: 1
   rounds:
   - sentence: Move the red block
     vocabulary:
@@ -998,6 +998,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level1Manager: {fileID: 1377366776}
   wordColumnSprite: {fileID: 21300000, guid: a56d2b0a08f4a39488ab76949a034c54, type: 3}
+  vocabularyCardSprite: {fileID: 21300000, guid: 1dff9bd6846882f4291ebbfebacbb366, type: 3}
+  idCardPrefab: {fileID: 8201000000000000000, guid: 7cc150f00b68477498f6e8f5c2879d2b, type: 3}
+  placeholderPrefab: {fileID: 8301000000000000000, guid: 53ba364df63a487185267694a9f9cba4, type: 3}
   vocabulary:
   - token: Move
     id: 7421
@@ -1233,8 +1236,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1251,8 +1254,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 14.4
+  m_fontSizeBase: 14.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

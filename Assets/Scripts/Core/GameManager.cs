@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState currentState;
+    [SerializeField] private GameState debugStartState = GameState.StartMenu;
 
     void Awake()
     {
@@ -23,13 +25,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ChangeState(GameState.StartMenu);
+        ChangeState(debugStartState);
     }
 
     public void ChangeState(GameState newState)
     {
         currentState = newState;
         Debug.Log("Current State: " + newState);
+        UIManager.Instance?.UpdateUI(newState);
     }
 
     // Button functions
@@ -49,6 +52,26 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.Game);
     }
 
+    public void GoToLevel1()
+    {
+        LoadLevel(1);
+    }
+
+    public void GoToLevel2()
+    {
+        LoadLevel(2);
+    }
+
+    public void GoToLevel3()
+    {
+        LoadLevel(3);
+    }
+
+    public void GoToLevel4()
+    {
+        LoadLevel(4);
+    }
+
     public void PauseGame()
     {
         ChangeState(GameState.Pause);
@@ -62,5 +85,18 @@ public class GameManager : MonoBehaviour
     public void OpenSettings()
     {
         ChangeState(GameState.Settings);
+    }
+
+    private void LoadLevel(int levelNumber)
+    {
+        string sceneName = $"Level{levelNumber}";
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            Debug.LogWarning($"Scene '{sceneName}' is not in Build Settings or has not been created yet.");
+            return;
+        }
+
+        ChangeState(GameState.Game);
+        SceneManager.LoadScene(sceneName);
     }
 }

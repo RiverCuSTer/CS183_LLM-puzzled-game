@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Part2Script : MonoBehaviour
 {
+    private const float FontScale = 0.3f;
+
     private enum Part2Phase
     {
         Mapping,
@@ -24,6 +26,9 @@ public class Part2Script : MonoBehaviour
 
     [Header("Vocabulary")]
     [SerializeField] private Sprite wordColumnSprite;
+    [SerializeField] private Sprite vocabularyCardSprite;
+    [SerializeField] private GameObject idCardPrefab;
+    [SerializeField] private GameObject placeholderPrefab;
     [SerializeField] private TokenIdPair[] vocabulary =
     {
         new TokenIdPair { token = "Move", id = 7421 },
@@ -188,7 +193,7 @@ public class Part2Script : MonoBehaviour
             mappingSlots.Add(slot);
         }
 
-        SpawnIdPoolCards(GetPoolOrder(mappingPoolOrder));
+        SpawnIdPoolCards(GetShuffledTokenIds());
     }
 
     private void StartSequencingPhase()
@@ -213,7 +218,7 @@ public class Part2Script : MonoBehaviour
             SetRect(indexText.rectTransform, new Vector2(i * step, 0.28f), new Vector2((i + 1) * step, 0.38f), Vector2.zero, Vector2.zero);
         }
 
-        SpawnIdPoolCards(GetPoolOrder(sequencePoolOrder));
+        SpawnIdPoolCards(GetShuffledTokenIds());
     }
 
     private void CheckCurrentPhase()
@@ -271,17 +276,18 @@ public class Part2Script : MonoBehaviour
         }
     }
 
-    private int[] GetPoolOrder(int[] configuredOrder)
+    private int[] GetShuffledTokenIds()
     {
-        if (configuredOrder != null && configuredOrder.Length == vocabulary.Length)
-        {
-            return configuredOrder;
-        }
-
         int[] ids = new int[vocabulary.Length];
         for (int i = 0; i < vocabulary.Length; i++)
         {
             ids[i] = vocabulary[i].id;
+        }
+
+        for (int i = ids.Length - 1; i > 0; i--)
+        {
+            int swapIndex = Random.Range(0, i + 1);
+            (ids[i], ids[swapIndex]) = (ids[swapIndex], ids[i]);
         }
 
         return ids;
@@ -294,14 +300,26 @@ public class Part2Script : MonoBehaviour
         slotObject.layer = gameObject.layer;
 
         Image image = slotObject.GetComponent<Image>();
-        image.color = new Color(0.08f, 0.12f, 0.16f, 1f);
+        image.color = new Color(1f, 1f, 1f, 0f);
+        image.raycastTarget = true;
 
         TokenIdSlot slot = slotObject.GetComponent<TokenIdSlot>();
         slot.Initialize(expectedId, canvas, idPool);
 
-        TMP_Text label = CreateText("Placeholder", slotObject.transform, "?", 114, new Color(0.7f, 0.85f, 1f, 1f), TextAlignmentOptions.Center);
-        SetRect(label.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        slot.SetPlaceholder(label);
+        GameObject placeholderObject = CreateCardTemplate("Placeholder", slotObject.transform, placeholderPrefab);
+        placeholderObject.layer = gameObject.layer;
+        SetRect(placeholderObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+
+        TMP_Text label = placeholderObject.transform.Find("PlaceholderText")?.GetComponent<TMP_Text>();
+        if (label == null)
+        {
+            label = CreateText("PlaceholderText", placeholderObject.transform, "?", 114, new Color(0.7f, 0.85f, 1f, 1f), TextAlignmentOptions.Center);
+            SetRect(label.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        }
+
+        label.text = "?";
+        ApplyWhiteText(label);
+        slot.SetPlaceholder(placeholderObject);
 
         RectTransform rect = slotObject.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(width, height);
@@ -310,15 +328,31 @@ public class Part2Script : MonoBehaviour
 
     private IdDragCard CreateIdCard(string name, Transform parent, int id)
     {
-        GameObject cardObject = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(CanvasGroup), typeof(IdDragCard));
-        cardObject.transform.SetParent(parent, false);
+        GameObject cardObject = CreateCardTemplate(name, parent, idCardPrefab);
+        if (cardObject.GetComponent<CanvasGroup>() == null)
+        {
+            cardObject.AddComponent<CanvasGroup>();
+        }
+
+        if (cardObject.GetComponent<IdDragCard>() == null)
+        {
+            cardObject.AddComponent<IdDragCard>();
+        }
+
         cardObject.layer = gameObject.layer;
 
         Image image = cardObject.GetComponent<Image>();
-        image.color = new Color(0.08f, 0.12f, 0.16f, 1f);
+        ConfigureVocabularyFrameImage(image);
 
-        TMP_Text label = CreateText("IdText", cardObject.transform, id.ToString(), 114, new Color(0.7f, 0.85f, 1f, 1f), TextAlignmentOptions.Center);
-        SetRect(label.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        TMP_Text label = cardObject.transform.Find("IdText")?.GetComponent<TMP_Text>();
+        if (label == null)
+        {
+            label = CreateText("IdText", cardObject.transform, id.ToString(), 114, new Color(0.7f, 0.85f, 1f, 1f), TextAlignmentOptions.Center);
+            SetRect(label.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        }
+
+        label.text = id.ToString();
+        ApplyWhiteText(label);
 
         IdDragCard card = cardObject.GetComponent<IdDragCard>();
         card.Initialize(id, canvas, idPool);
@@ -379,12 +413,69 @@ public class Part2Script : MonoBehaviour
 
         TMP_Text tmp = textObject.GetComponent<TMP_Text>();
         tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.color = color;
+        tmp.fontSize = fontSize * FontScale;
+        ApplyWhiteText(tmp);
         tmp.alignment = alignment;
         tmp.enableWordWrapping = false;
         tmp.raycastTarget = false;
         return tmp;
+    }
+
+    private GameObject CreateCardTemplate(string name, Transform parent, GameObject prefab)
+    {
+        GameObject frame = prefab != null
+            ? Instantiate(prefab, parent)
+            : new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+
+        if (prefab == null)
+        {
+            frame.transform.SetParent(parent, false);
+        }
+
+        frame.name = name;
+        frame.layer = gameObject.layer;
+        RectTransform rect = frame.GetComponent<RectTransform>();
+        if (rect != null && prefab == null)
+        {
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.sizeDelta = new Vector2(cardWidth, cardHeight);
+        }
+
+        ConfigureVocabularyFrameImage(frame.GetComponent<Image>());
+        return frame;
+    }
+
+    private void ConfigureVocabularyFrameImage(Image image)
+    {
+        if (image == null) return;
+
+        if (vocabularyCardSprite != null)
+        {
+            image.sprite = vocabularyCardSprite;
+        }
+
+        image.color = Color.white;
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.raycastTarget = true;
+    }
+
+    private void ApplyWhiteText(TMP_Text text)
+    {
+        if (text == null) return;
+
+        text.enableVertexGradient = false;
+        text.color = Color.white;
+        text.faceColor = Color.white;
+        if (text.fontSharedMaterial != null)
+        {
+            text.fontMaterial = new Material(text.fontSharedMaterial);
+            text.fontMaterial.SetColor("_FaceColor", Color.white);
+        }
+
+        text.SetAllDirty();
     }
 
     private Button CreateButton(string name, Transform parent, string label)
@@ -452,6 +543,7 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     private Canvas canvas;
     private CanvasGroup canvasGroup;
+    private Image image;
     private RectTransform rectTransform;
     private Transform poolParent;
     private TokenIdSlot currentSlot;
@@ -467,6 +559,8 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         poolParent = pool;
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        image = GetComponent<Image>();
+        RestoreVisual();
     }
 
     public void StorePoolRect()
@@ -475,6 +569,7 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         poolAnchorMax = rectTransform.anchorMax;
         poolOffsetMin = rectTransform.offsetMin;
         poolOffsetMax = rectTransform.offsetMax;
+        RestoreVisual();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -491,6 +586,7 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         transform.SetAsLastSibling();
         canvasGroup.alpha = 0.75f;
         canvasGroup.blocksRaycasts = false;
+        RestoreVisual();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -517,6 +613,7 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         rectTransform.anchorMax = Vector2.one;
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
+        RestoreVisual();
     }
 
     public void ReturnToPool()
@@ -526,6 +623,15 @@ public class IdDragCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         rectTransform.anchorMax = poolAnchorMax;
         rectTransform.offsetMin = poolOffsetMin;
         rectTransform.offsetMax = poolOffsetMax;
+        RestoreVisual();
+    }
+
+    private void RestoreVisual()
+    {
+        if (image != null)
+        {
+            image.color = Color.white;
+        }
     }
 }
 
@@ -535,7 +641,7 @@ public class TokenIdSlot : MonoBehaviour, IDropHandler
     private Canvas canvas;
     private Transform poolParent;
     private IdDragCard currentCard;
-    private TMP_Text placeholder;
+    private GameObject placeholder;
     private Image image;
 
     public void Initialize(int id, Canvas parentCanvas, Transform pool)
@@ -544,20 +650,18 @@ public class TokenIdSlot : MonoBehaviour, IDropHandler
         canvas = parentCanvas;
         poolParent = pool;
         image = GetComponent<Image>();
+        RestoreVisual();
     }
 
-    public void SetPlaceholder(TMP_Text text)
+    public void SetPlaceholder(GameObject placeholderObject)
     {
-        placeholder = text;
+        placeholder = placeholderObject;
     }
 
     public bool HasCorrectCard()
     {
         bool correct = currentCard != null && currentCard.Id == expectedId;
-        if (image != null)
-        {
-            image.color = correct ? new Color(0.12f, 0.35f, 0.18f, 1f) : new Color(0.38f, 0.08f, 0.08f, 1f);
-        }
+        RestoreVisual();
 
         return correct;
     }
@@ -568,12 +672,12 @@ public class TokenIdSlot : MonoBehaviour, IDropHandler
         currentCard = null;
         if (placeholder != null)
         {
-            placeholder.gameObject.SetActive(true);
+            placeholder.SetActive(true);
         }
 
         if (image != null)
         {
-            image.color = new Color(0.08f, 0.12f, 0.16f, 1f);
+            RestoreVisual();
         }
     }
 
@@ -592,12 +696,19 @@ public class TokenIdSlot : MonoBehaviour, IDropHandler
 
         if (placeholder != null)
         {
-            placeholder.gameObject.SetActive(false);
+            placeholder.SetActive(false);
         }
 
         if (image != null)
         {
-            image.color = new Color(0.1f, 0.18f, 0.24f, 1f);
+            RestoreVisual();
         }
+    }
+
+    private void RestoreVisual()
+    {
+        if (image == null) return;
+
+        image.color = new Color(1f, 1f, 1f, 0f);
     }
 }

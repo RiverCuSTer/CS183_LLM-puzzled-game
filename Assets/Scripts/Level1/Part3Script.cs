@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Part3Script : MonoBehaviour
 {
+    private const float FontScale = 0.3f;
+
     [System.Serializable]
     private class EmbeddingToken
     {
@@ -136,7 +138,7 @@ public class Part3Script : MonoBehaviour
         panel.sizeDelta = area.size;
         regionPanels.Add(panel);
 
-        TMP_Text text = CreateText("Label_" + label, panel, label, 104, new Color(1f, 1f, 1f, 0.95f), TextAlignmentOptions.Center);
+        TMP_Text text = CreateText("Label_" + label, panel, label, 104, new Color(1f, 1f, 1f, 0.35f), TextAlignmentOptions.Center);
         SetRect(text.rectTransform, Vector2.zero, Vector2.one);
     }
 
@@ -150,9 +152,10 @@ public class Part3Script : MonoBehaviour
             new Vector2(0.83f, 0.4f), new Vector2(0.83f, 0.26f), new Vector2(0.83f, 0.12f)
         };
 
-        for (int i = 0; i < tokens.Count; i++)
+        List<EmbeddingToken> shuffledTokens = GetShuffledTokens();
+        for (int i = 0; i < shuffledTokens.Count; i++)
         {
-            EmbeddingTokenCard card = CreateTokenCard(tokens[i], i);
+            EmbeddingTokenCard card = CreateTokenCard(shuffledTokens[i], i);
             RectTransform rect = card.GetComponent<RectTransform>();
             Vector2 anchor = positions[i % positions.Length];
             rect.anchorMin = anchor;
@@ -162,6 +165,18 @@ public class Part3Script : MonoBehaviour
             card.StoreHomeRect();
             tokenCards.Add(card);
         }
+    }
+
+    private List<EmbeddingToken> GetShuffledTokens()
+    {
+        List<EmbeddingToken> shuffledTokens = new List<EmbeddingToken>(tokens);
+        for (int i = shuffledTokens.Count - 1; i > 0; i--)
+        {
+            int swapIndex = Random.Range(0, i + 1);
+            (shuffledTokens[i], shuffledTokens[swapIndex]) = (shuffledTokens[swapIndex], shuffledTokens[i]);
+        }
+
+        return shuffledTokens;
     }
 
     private EmbeddingTokenCard CreateTokenCard(EmbeddingToken token, int index)
@@ -286,13 +301,13 @@ public class Part3Script : MonoBehaviour
             if (!card.IsCorrect)
             {
                 feedbackText.text = "Some tokens are still far from their embedding areas.";
-                feedbackText.color = new Color(1f, 0.45f, 0.35f, 1f);
+                ApplyWhiteText(feedbackText);
                 return;
             }
         }
 
         feedbackText.text = "Embedding complete.";
-        feedbackText.color = new Color(0.55f, 1f, 0.75f, 1f);
+        ApplyWhiteText(feedbackText);
         if (level1Manager != null)
         {
             level1Manager.CompleteLevel();
@@ -322,12 +337,33 @@ public class Part3Script : MonoBehaviour
 
         TMP_Text tmp = obj.GetComponent<TMP_Text>();
         tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.color = color;
+        tmp.fontSize = fontSize * FontScale;
+        ApplyTextColor(tmp, color);
         tmp.alignment = alignment;
         tmp.enableWordWrapping = false;
         tmp.raycastTarget = false;
         return tmp;
+    }
+
+    private static void ApplyWhiteText(TMP_Text text)
+    {
+        ApplyTextColor(text, Color.white);
+    }
+
+    private static void ApplyTextColor(TMP_Text text, Color color)
+    {
+        if (text == null) return;
+
+        text.enableVertexGradient = false;
+        text.color = color;
+        text.faceColor = color;
+        if (text.fontSharedMaterial != null)
+        {
+            text.fontMaterial = new Material(text.fontSharedMaterial);
+            text.fontMaterial.SetColor("_FaceColor", color);
+        }
+
+        text.SetAllDirty();
     }
 
     private Button CreateButton(string name, Transform parent, string label)
@@ -463,9 +499,8 @@ public class EmbeddingTokenCard : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         float flash = semanticFlash ? Mathf.PingPong(time * 3.5f, 1f) : 0f;
         float glow = Mathf.Max(brightness, flash);
-        Color baseColor = new Color(0.78f, 0.92f, 1f, 1f);
-        Color glowColor = new Color(0.55f, 1f, 0.8f, 1f);
-        label.color = IsCorrect ? new Color(0.6f, 1f, 0.75f, 1f) : Color.Lerp(baseColor, glowColor, glow);
+        label.color = Color.white;
+        label.faceColor = Color.white;
         semanticFlash = false;
     }
 

@@ -108,7 +108,15 @@ public class Part1Script : MonoBehaviour
         containerRect.anchorMin = new Vector2(0.5f, 0.5f);
         containerRect.anchorMax = new Vector2(0.5f, 0.5f);
         containerRect.pivot = new Vector2(0.5f, 0.5f);
-        containerRect.sizeDelta = new Vector2(1500, 100);
+        containerRect.anchoredPosition = new Vector2(0f, 80f);
+        containerRect.sizeDelta = new Vector2(1500, 120);
+
+        RectTransform tokenPoolRect = tokenPool.GetComponent<RectTransform>();
+        tokenPoolRect.anchorMin = new Vector2(0.5f, 0.5f);
+        tokenPoolRect.anchorMax = new Vector2(0.5f, 0.5f);
+        tokenPoolRect.pivot = new Vector2(0.5f, 0.5f);
+        tokenPoolRect.anchoredPosition = new Vector2(0f, -90f);
+        tokenPoolRect.sizeDelta = new Vector2(600, 120);
 
         HorizontalLayoutGroup layout = textContainer.GetComponent<HorizontalLayoutGroup>();
         if (layout == null)
@@ -205,19 +213,36 @@ public class Part1Script : MonoBehaviour
         if (tmp == null) return;
 
         tmp.text = letter.ToString();
-        tmp.fontSize = 200;
+        tmp.fontSize = 60;
+        ApplyWhiteText(tmp);
         tmp.margin = Vector4.zero;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.ForceMeshUpdate();
 
-        letterRect.sizeDelta = new Vector2(tmp.preferredWidth + 8, 100);
+        letterRect.sizeDelta = new Vector2(tmp.preferredWidth + 2.4f, 30);
+    }
+
+    private void ApplyWhiteText(TMP_Text text)
+    {
+        if (text == null) return;
+
+        text.enableVertexGradient = false;
+        text.color = Color.white;
+        text.faceColor = Color.white;
+        if (text.fontSharedMaterial != null)
+        {
+            text.fontMaterial = new Material(text.fontSharedMaterial);
+            text.fontMaterial.SetColor("_FaceColor", Color.white);
+        }
+
+        text.SetAllDirty();
     }
 
     private void CreateGapSlot(bool isTarget)
     {
         GameObject gap = new GameObject("Gap", typeof(RectTransform), typeof(LetterSlot));
         gap.transform.SetParent(textContainer, false);
-        gap.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 120);
+        gap.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 36);
         LetterSlot slot = gap.GetComponent<LetterSlot>();
         slot.isTarget = isTarget;
         letterSlots.Add(slot);
