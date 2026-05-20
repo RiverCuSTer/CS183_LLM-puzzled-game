@@ -197,9 +197,9 @@ public class Part1Script : MonoBehaviour
         GameObject letterObj = Instantiate(letterPrefab, textContainer);
 
         LayoutElement layoutElement = letterObj.GetComponent<LayoutElement>();
-        if (layoutElement != null)
+        if (layoutElement == null)
         {
-            Destroy(layoutElement);
+            layoutElement = letterObj.AddComponent<LayoutElement>();
         }
 
         ContentSizeFitter contentSizeFitter = letterObj.GetComponent<ContentSizeFitter>();
@@ -219,7 +219,11 @@ public class Part1Script : MonoBehaviour
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.ForceMeshUpdate();
 
-        letterRect.sizeDelta = new Vector2(tmp.preferredWidth + 2.4f, 30);
+        float letterWidth = tmp.preferredWidth + 2.4f;
+        layoutElement.minWidth = letterWidth;
+        layoutElement.preferredWidth = letterWidth;
+        layoutElement.flexibleWidth = 0f;
+        letterRect.sizeDelta = new Vector2(letterWidth, 30);
     }
 
     private void ApplyWhiteText(TMP_Text text)
@@ -240,9 +244,13 @@ public class Part1Script : MonoBehaviour
 
     private void CreateGapSlot(bool isTarget)
     {
-        GameObject gap = new GameObject("Gap", typeof(RectTransform), typeof(LetterSlot));
+        GameObject gap = new GameObject("Gap", typeof(RectTransform), typeof(LayoutElement), typeof(LetterSlot));
         gap.transform.SetParent(textContainer, false);
         gap.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 36);
+        LayoutElement layoutElement = gap.GetComponent<LayoutElement>();
+        layoutElement.minWidth = 0f;
+        layoutElement.preferredWidth = 0f;
+        layoutElement.flexibleWidth = 0f;
         LetterSlot slot = gap.GetComponent<LetterSlot>();
         slot.isTarget = isTarget;
         letterSlots.Add(slot);

@@ -5,14 +5,57 @@ using UnityEngine.UI;
 public class LetterSlot : MonoBehaviour, IDropHandler
 {
     public bool isOccupied = false;
-    public bool isTarget = false;          // ← 新增：是否为正确位置
+    public bool isTarget = false;
+
+    private const float NormalWidth = 0f;
+    private const float MinExpandedWidth = 90f;
+    private const float ExpandPadding = 10f;
+    private const float ExpandSpeed = 18f;
 
     private RectTransform rectTransform;
+    private LayoutElement layoutElement;
     private Draggable currentMarker;
+    private float targetWidth = NormalWidth;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        layoutElement = GetComponent<LayoutElement>();
+        if (layoutElement == null)
+        {
+            layoutElement = gameObject.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.minWidth = NormalWidth;
+        layoutElement.preferredWidth = NormalWidth;
+        layoutElement.flexibleWidth = 0f;
+    }
+
+    void Update()
+    {
+        if (layoutElement == null || rectTransform == null) return;
+
+        layoutElement.preferredWidth = Mathf.Lerp(layoutElement.preferredWidth, targetWidth, Time.deltaTime * ExpandSpeed);
+        if (Mathf.Abs(layoutElement.preferredWidth - targetWidth) < 0.5f)
+        {
+            layoutElement.preferredWidth = targetWidth;
+        }
+
+        rectTransform.sizeDelta = new Vector2(layoutElement.preferredWidth, rectTransform.sizeDelta.y);
+    }
+
+    public void PreviewMarker(Draggable marker)
+    {
+        if (isOccupied) return;
+
+        targetWidth = CalculateExpandedWidth(marker);
+    }
+
+    public void ClearPreview()
+    {
+        if (isOccupied) return;
+
+        targetWidth = NormalWidth;
     }
 
     public void PlaceMarker(Draggable marker)
@@ -21,21 +64,23 @@ public class LetterSlot : MonoBehaviour, IDropHandler
 
         isOccupied = true;
         currentMarker = marker;
+        targetWidth = CalculateExpandedWidth(marker);
 
-        // 将标记作为 Gap 的子物体（世界坐标保持不变）
         marker.transform.SetParent(transform, false);
 
-        // 手动设置标记在 Gap 内的相对位置：水平居中，向下偏移 60
         RectTransform markerRect = marker.GetComponent<RectTransform>();
-        markerRect.anchoredPosition = new Vector2(50, -65);
+        markerRect.anchorMin = new Vector2(0.5f, 0.5f);
+        markerRect.anchorMax = new Vector2(0.5f, 0.5f);
+        markerRect.pivot = new Vector2(0.5f, 0.5f);
+        markerRect.anchoredPosition = new Vector2(0f, -65f);
 
-        // 添加 LayoutElement 并忽略布局，防止 HorizontalLayoutGroup 重置位置
-        LayoutElement le = marker.GetComponent<LayoutElement>();
-        if (le == null) le = marker.gameObject.AddComponent<LayoutElement>();
-        le.ignoreLayout = true;
+        LayoutElement markerLayout = marker.GetComponent<LayoutElement>();
+        if (markerLayout == null)
+        {
+            markerLayout = marker.gameObject.AddComponent<LayoutElement>();
+        }
 
-        // 撑开 Gap 自身的宽度，让字母分开
-        rectTransform.sizeDelta = new Vector2(80, rectTransform.sizeDelta.y);
+        markerLayout.ignoreLayout = true;
     }
 
     public void RemoveMarker(Draggable marker)
@@ -44,11 +89,18 @@ public class LetterSlot : MonoBehaviour, IDropHandler
 
         isOccupied = false;
         currentMarker = null;
-        rectTransform.sizeDelta = new Vector2(0, rectTransform.sizeDelta.y);
+        targetWidth = NormalWidth;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        // 拖拽放置逻辑已在 Draggable 中处理，这里留空
+        // Placement is handled by Draggable so nearest-slot snapping can work.
+    }
+
+    private float CalculateExpandedWidth(Draggable marker)
+    {
+        RectTransform markerRect = marker == null ? null : marker.GetComponent<RectTransform>();
+        float markerWidth = markerRect == null ? MinExpandedWidth : markerRect.rect.width;
+        return Mathf.Max(MinExpandedWidth, markerWidth + ExpandPadding);
     }
 }

@@ -829,7 +829,7 @@ MonoBehaviour:
   Panel_Part1: {fileID: 1498551805}
   Panel_Part2: {fileID: 1448589848}
   Panel_Part3: {fileID: 928451664}
-  startAtPart3ForTesting: 1
+  startAtPart3ForTesting: 0
   rounds:
   - sentence: Move the red block
     vocabulary:
