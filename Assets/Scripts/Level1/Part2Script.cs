@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Part2Script : MonoBehaviour
 {
-    private const float FontScale = 0.3f;
+    private const float FontScale = 0.15f;
 
     private enum Part2Phase
     {

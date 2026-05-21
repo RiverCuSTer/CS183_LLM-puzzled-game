@@ -213,7 +213,7 @@ public class Part1Script : MonoBehaviour
         if (tmp == null) return;
 
         tmp.text = letter.ToString();
-        tmp.fontSize = 60;
+        tmp.fontSize = 30;
         ApplyWhiteText(tmp);
         tmp.margin = Vector4.zero;
         tmp.alignment = TextAlignmentOptions.Center;

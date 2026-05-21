@@ -52,11 +52,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         canvasGroup.alpha = 0.7f;
         canvasGroup.blocksRaycasts = false;
+        MoveToPointer(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        MoveToPointer(eventData);
         UpdatePreviewSlot(eventData);
     }
 
@@ -126,6 +127,20 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         {
             previewSlot.ClearPreview();
             previewSlot = null;
+        }
+    }
+
+    private void MoveToPointer(PointerEventData eventData)
+    {
+        if (canvas == null) return;
+
+        RectTransform canvasRect = canvas.transform as RectTransform;
+        if (canvasRect == null) return;
+
+        Camera eventCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, eventData.position, eventCamera, out Vector2 localPoint))
+        {
+            rectTransform.anchoredPosition = localPoint;
         }
     }
 }
