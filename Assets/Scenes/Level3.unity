@@ -486,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: 
   panelColor: {r: 1, g: 1, b: 1, a: 0.7}
-  guiSize: {x: 720, y: 44}
+  guiSize: {x: 720, y: 30}
   fontSize: 14
   bold: 0
   uiScale: 3
@@ -777,9 +777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: scientist
-  hint: core
-  slotColor: {r: 1, g: 1, b: 1, a: 0.45}
-  guiSize: {x: 140, y: 48}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200037
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +855,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200040
 MonoBehaviour:
@@ -871,9 +870,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: careful
-  hint: modifier
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200041
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +948,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200044
 MonoBehaviour:
@@ -965,9 +963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: The
-  hint: modifier
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,9 +1106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: placed
-  hint: core
-  slotColor: {r: 1, g: 1, b: 1, a: 0.45}
-  guiSize: {x: 140, y: 48}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1184,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200055
 MonoBehaviour:
@@ -1203,9 +1199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: gently
-  hint: modifier
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,9 +1342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: cat
-  hint: core
-  slotColor: {r: 1, g: 1, b: 1, a: 0.45}
-  guiSize: {x: 140, y: 48}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1420,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200066
 MonoBehaviour:
@@ -1441,9 +1435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: the
-  hint: modifier
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,7 +1513,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200070
 MonoBehaviour:
@@ -1535,9 +1528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: under
-  hint: place
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1606,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1, y: 1.05}
+  m_Size: {x: 1.75, y: 0.65}
   m_EdgeRadius: 0
 --- !u!114 &200074
 MonoBehaviour:
@@ -1629,9 +1621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expectedWord: table
-  hint: place
-  slotColor: {r: 1, g: 1, b: 1, a: 0.2}
-  guiSize: {x: 118, y: 52}
+  triggerSize: {x: 1.75, y: 0.65}
+  overrideTriggerSize: 1
 --- !u!1 &200075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2911,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -2971,7 +2962,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200135}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3022,7 +3013,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3073,7 +3064,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200141}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3124,7 +3115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3325,7 +3316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200156}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3376,7 +3367,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200159}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3427,7 +3418,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200162}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3478,7 +3469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3529,7 +3520,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200168}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
   m_Name: 
@@ -3602,6 +3593,8 @@ MonoBehaviour:
   pieceId: scientist
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: cabe8292f15e0e84bac5041166ac6eed, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3617,6 +3610,8 @@ MonoBehaviour:
   pieceId: cat
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 470d8ddf06159724ea92f7e0c23af98e, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3632,6 +3627,8 @@ MonoBehaviour:
   pieceId: dog
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 43218af89ef266a419c4e44e3f8192f0, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3647,6 +3644,8 @@ MonoBehaviour:
   pieceId: table
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 6468c5a3934a51f499e54b002a74a9b5, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3662,6 +3661,8 @@ MonoBehaviour:
   pieceId: carpet
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 945f3e7d0a4120a4d9a896fc763debed, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3677,6 +3678,8 @@ MonoBehaviour:
   pieceId: dog
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 43218af89ef266a419c4e44e3f8192f0, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3692,6 +3695,8 @@ MonoBehaviour:
   pieceId: table
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 6468c5a3934a51f499e54b002a74a9b5, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3707,6 +3712,8 @@ MonoBehaviour:
   pieceId: scientist
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: cabe8292f15e0e84bac5041166ac6eed, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3722,6 +3729,8 @@ MonoBehaviour:
   pieceId: cat
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 470d8ddf06159724ea92f7e0c23af98e, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &200309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3737,6 +3746,109 @@ MonoBehaviour:
   pieceId: carpet
   guiSize: {x: 105, y: 48}
   uiScale: 2.025
+  imageSprite: {fileID: 21300000, guid: 945f3e7d0a4120a4d9a896fc763debed, type: 3}
+  imageTint: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &200600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: The careful scientist gently placed the cat under the table while the dog
+    sat on the carpet.
+  panelColor: {r: 1, g: 1, b: 1, a: 0.82}
+  guiSize: {x: 900, y: 40}
+  fontSize: 16
+  bold: 1
+  uiScale: 1.2
+--- !u!4 &200601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &200602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 200601}
+  - component: {fileID: 200600}
+  m_Layer: 0
+  m_Name: L1_BottomSentence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &200603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51f6a20dbd744c9a583ba8318b072b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: The careful scientist gently placed the cat under the table.
+  panelColor: {r: 1, g: 1, b: 1, a: 0.82}
+  guiSize: {x: 660, y: 40}
+  fontSize: 17
+  bold: 1
+  uiScale: 1.2
+--- !u!4 &200604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200605}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300004}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &200605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 200604}
+  - component: {fileID: 200603}
+  m_Layer: 0
+  m_Name: L2_BottomSentence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &300001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3783,6 +3895,7 @@ Transform:
   - {fileID: 200018}
   - {fileID: 200021}
   - {fileID: 200024}
+  - {fileID: 200601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300003
@@ -3837,6 +3950,7 @@ Transform:
   - {fileID: 200111}
   - {fileID: 200116}
   - {fileID: 200121}
+  - {fileID: 200604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300005
@@ -3945,7 +4059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1166285b164a85bc42d370ea539e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneCenter: {x: 0, y: 35.85}
+  sceneCenter: {x: 0, y: 35.35}
   sceneHalfSize: {x: 4.1, y: 1.9}
 --- !u!1 &300700
 GameObject:
@@ -4720,6 +4834,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21d594207ae4911a09f24b575f76d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer2WordBlocks: []
+  randomizeInitialPositions: 1
+  randomSeed: -1
+  spawnLeftX: -5.65
+  spawnRightX: 5.65
+  spawnTopY: 15.4
+  spawnYSpacing: 0.75
+  spawnSideColumnSpacing: 0.55
+  spawnRowsPerSideColumn: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

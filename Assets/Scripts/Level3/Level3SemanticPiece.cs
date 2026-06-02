@@ -5,6 +5,8 @@ public class Level3SemanticPiece : MonoBehaviour
     [SerializeField] private string pieceId = "asset";
     [SerializeField] private Vector2 guiSize = new Vector2(105f, 48f);
     [SerializeField] private float uiScale = 1.35f;
+    [SerializeField] private Sprite imageSprite;
+    [SerializeField] private Color imageTint = Color.white;
 
     private Camera mainCamera;
     private Vector3 dragOffset;
@@ -45,6 +47,8 @@ public class Level3SemanticPiece : MonoBehaviour
             return;
 
         Rect rect = GetScreenRect();
+        DrawImage(rect);
+
         Event current = Event.current;
         if (current.type == EventType.MouseDown && current.button == 0 && rect.Contains(current.mousePosition))
         {
@@ -71,6 +75,12 @@ public class Level3SemanticPiece : MonoBehaviour
         uiScale = newUiScale;
     }
 
+    public void ConfigureImage(Sprite newImageSprite, Color newImageTint)
+    {
+        imageSprite = newImageSprite;
+        imageTint = newImageTint;
+    }
+
     public void CaptureStartPosition()
     {
         startPosition = transform.position;
@@ -88,6 +98,31 @@ public class Level3SemanticPiece : MonoBehaviour
         Vector3 screen = mainCamera.WorldToScreenPoint(transform.position);
         Vector2 scaledSize = guiSize * uiScale;
         return new Rect(screen.x - scaledSize.x * 0.5f, Screen.height - screen.y - scaledSize.y * 0.5f, scaledSize.x, scaledSize.y);
+    }
+
+    private void DrawImage(Rect rect)
+    {
+        if (imageSprite == null || imageSprite.texture == null)
+            return;
+
+        int previousDepth = GUI.depth;
+        Color previousColor = GUI.color;
+
+        GUI.depth = -20;
+        GUI.color = imageTint;
+
+        Rect textureRect = imageSprite.textureRect;
+        Rect texCoords = new Rect(
+            textureRect.x / imageSprite.texture.width,
+            textureRect.y / imageSprite.texture.height,
+            textureRect.width / imageSprite.texture.width,
+            textureRect.height / imageSprite.texture.height
+        );
+
+        GUI.DrawTextureWithTexCoords(rect, imageSprite.texture, texCoords, true);
+
+        GUI.color = previousColor;
+        GUI.depth = previousDepth;
     }
 
     private Vector3 GetMouseWorldPosition()

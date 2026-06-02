@@ -162,12 +162,12 @@ public class Level3Layer3Manager : MonoBehaviour
             return;
 
         piece.transform.position = new Vector3(x, 20.1f, 0f);
-        piece.ConfigureInteractionSize(new Vector2(105f, 48f), 2.025f);
+        piece.ConfigureInteractionSize(new Vector2(90f, 90f), 2.025f);
         piece.CaptureStartPosition();
 
         Level3SceneLabel sceneLabel = piece.GetComponent<Level3SceneLabel>();
         if (sceneLabel != null)
-            sceneLabel.Configure(pieceId, GetPieceColor(pieceId), new Vector2(105f, 48f), 16, true, 2.025f);
+            sceneLabel.enabled = false;
     }
 
     private Color GetPieceColor(string pieceId)

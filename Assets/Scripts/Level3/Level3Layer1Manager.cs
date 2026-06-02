@@ -4,6 +4,7 @@ using UnityEngine;
 public class Level3Layer1Manager : MonoBehaviour
 {
     private const float UiScale = 3f;
+    private const float PendingLineWidth = 6f;
 
     public static Level3Layer1Manager Instance { get; private set; }
 
@@ -41,6 +42,8 @@ public class Level3Layer1Manager : MonoBehaviour
         Camera camera = Camera.main;
         if (camera == null || !IsLayerOneActive(camera))
             return;
+
+        DrawPendingConnectionLine(camera);
 
         GUIStyle style = new GUIStyle(GUI.skin.label)
         {
@@ -158,6 +161,42 @@ public class Level3Layer1Manager : MonoBehaviour
         }
 
         return hasRelation;
+    }
+
+    private void DrawPendingConnectionLine(Camera camera)
+    {
+        if (selectedNode == null)
+            return;
+
+        Vector3 startScreen = camera.WorldToScreenPoint(selectedNode.transform.position);
+        if (startScreen.z < 0f)
+            return;
+
+        Vector2 start = new Vector2(startScreen.x, Screen.height - startScreen.y);
+        Vector2 end = Event.current.mousePosition;
+
+        DrawLine(start, end, new Color(0f, 0f, 0f, 0.42f), PendingLineWidth);
+    }
+
+    private static void DrawLine(Vector2 start, Vector2 end, Color color, float width)
+    {
+        Vector2 direction = end - start;
+        float length = direction.magnitude;
+        if (length <= 0.01f)
+            return;
+
+        Matrix4x4 previousMatrix = GUI.matrix;
+        Color previousColor = GUI.color;
+        int previousDepth = GUI.depth;
+
+        GUI.depth = 20;
+        GUI.color = color;
+        GUIUtility.RotateAroundPivot(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, start);
+        GUI.DrawTexture(new Rect(start.x, start.y - width * 0.5f, length, width), Texture2D.whiteTexture);
+
+        GUI.depth = previousDepth;
+        GUI.color = previousColor;
+        GUI.matrix = previousMatrix;
     }
 
     private void SetFeedback(string text)
