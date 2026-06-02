@@ -1,6 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class AttentionBalanceController : MonoBehaviour
 {
@@ -118,4 +119,5 @@ public class AttentionBalanceController : MonoBehaviour
         if (stableCallback != null)
             stableCallback.Invoke();
     }
+    
 }

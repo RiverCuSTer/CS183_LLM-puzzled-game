@@ -12,24 +12,25 @@ public class AttentionTray : MonoBehaviour
     public TextMeshProUGUI countText;
 
     [Header("Display Count")]
-    public bool useScaledDisplayCount = true;
+    public bool useScaledDisplayCount = false;
     public int displayDivisor = 5;
     public int minDisplayCount = 1;
     public bool keepZeroAsZero = true;
 
     [Header("Weight Size")]
-    public Vector2 weightSize = new Vector2(36f, 36f);
+    public Vector2 weightSize = new Vector2(150f, 150f);
     public Vector3 weightScale = Vector3.one;
 
     [Header("Layout")]
-    public float xSpacing = 18f;
-    public float ySpacing = 12f;
+    public float xSpacing = 90f;
+    public float ySpacing = 90f;
     public int weightsPerRow = 5;
     public bool invertY = true;
 
     public void SetWeightCount(int count)
     {
         Debug.Log("Tray [" + keyName + "] SetWeightCount raw = " + count);
+
         ClearWeights();
 
         if (countText != null)
@@ -63,12 +64,13 @@ public class AttentionTray : MonoBehaviour
                 int row = i / weightsPerRow;
                 int col = i % weightsPerRow;
 
+                float x = col * xSpacing;
                 float y = invertY ? -row * ySpacing : row * ySpacing;
 
                 rect.anchorMin = new Vector2(0.5f, 0.5f);
                 rect.anchorMax = new Vector2(0.5f, 0.5f);
                 rect.pivot = new Vector2(0.5f, 0.5f);
-                rect.anchoredPosition = new Vector2(col * xSpacing, y);
+                rect.anchoredPosition = new Vector2(x, y);
                 rect.sizeDelta = weightSize;
                 rect.localScale = weightScale;
                 rect.localRotation = Quaternion.identity;
@@ -80,24 +82,10 @@ public class AttentionTray : MonoBehaviour
 
     int GetDisplayCount(int rawCount)
     {
-        if (!useScaledDisplayCount)
-            return rawCount;
-
-        if (rawCount <= 0)
-            return 0;
-
-        if (displayDivisor <= 0)
-            displayDivisor = 1;
-
-        int scaled = Mathf.CeilToInt(rawCount / (float)displayDivisor);
-
-        if (keepZeroAsZero && rawCount == 0)
-            return 0;
-
-        return Mathf.Max(minDisplayCount, scaled);
+        // 直接返回原始数量，不做任何缩放
+        return Mathf.Max(0, rawCount);
     }
-
-    void ClearWeights()
+    public void ClearWeights()
     {
         if (weightParent == null)
             return;
@@ -107,5 +95,4 @@ public class AttentionTray : MonoBehaviour
             Destroy(weightParent.GetChild(i).gameObject);
         }
     }
-
 }
