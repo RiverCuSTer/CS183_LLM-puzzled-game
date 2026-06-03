@@ -35,6 +35,7 @@ public class NormalizationController : MonoBehaviour
 
     private bool hasNormalized = false;
     private bool isNormalizing = false;
+    private bool hasReportedLevelComplete = false;
 
     void Start()
     {
@@ -178,6 +179,13 @@ public class NormalizationController : MonoBehaviour
         if (nextLevelPopup != null)
             nextLevelPopup.SetActive(true);
 
+        if (!hasReportedLevelComplete)
+        {
+            hasReportedLevelComplete = true;
+            GameManager.MarkLevelCompleted(2);
+            GameManager.ReturnToLevelSelect();
+        }
+
         // 文字你说等会儿再加，所以这里可以留空。
         // 如果你想先测试，也可以临时写一点内容。
         if (purposeText != null && string.IsNullOrEmpty(purposeText.text))
@@ -193,6 +201,7 @@ public class NormalizationController : MonoBehaviour
 
         isNormalizing = false;
         hasNormalized = false;
+        hasReportedLevelComplete = false;
 
         if (numberPanel != null)
             numberPanel.SetActive(false);

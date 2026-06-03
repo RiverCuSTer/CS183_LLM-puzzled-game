@@ -1,21 +1,17 @@
-"""SQLAlchemy 数据模型 + Pydantic 校验 Schema"""
-from typing import Optional, Any, List
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
-from sqlalchemy import Column, Integer, String, Boolean, Text, ForeignKey
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from database import Base
 
-# ============================================================
-#  SQLAlchemy ORM 模型
-# ============================================================
-
 
 class User(Base):
     __tablename__ = "users"
+
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50), nullable=False, unique=True)
+    name = Column(String(50), nullable=False, unique=True, index=True)
     cur_level_id = Column(Integer, default=1)
     total_score = Column(Integer, default=0)
 
@@ -25,11 +21,12 @@ class User(Base):
 
 
 class Level(Base):
-    __tablename__ = "Level"
+    __tablename__ = "levels"
+
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(50), nullable=False)
-    description = Column(String(250))
-    config = Column(Text, nullable=True)  # 关卡配置 (JSON)
+    title = Column(String(80), nullable=False)
+    description = Column(String(500))
+    config = Column(Text, nullable=True)
 
     progress_records = relationship(
         "UserLevelProgress", back_populates="level", cascade="all, delete-orphan"
@@ -40,50 +37,35 @@ class Level(Base):
 
 
 class LevelPart(Base):
-    """关卡的 Part 定义——每关可以有 N 个 Part"""
-
     __tablename__ = "level_parts"
+
     id = Column(Integer, primary_key=True, index=True)
-    level_id = Column(
-        Integer, ForeignKey("Level.id", ondelete="CASCADE"), nullable=False
-    )
-    order = Column(Integer, nullable=False)  # Part 序号 (1, 2, 3…)
-    title = Column(String(50), nullable=False)
-    description = Column(String(250))
-    config = Column(Text, nullable=True)  # 每 Part 专属配置 (JSON)
+    level_id = Column(Integer, ForeignKey("levels.id", ondelete="CASCADE"), nullable=False)
+    order = Column(Integer, nullable=False)
+    title = Column(String(80), nullable=False)
+    description = Column(String(500))
+    config = Column(Text, nullable=True)
 
     level = relationship("Level", back_populates="parts")
 
 
 class UserLevelProgress(Base):
-    """用户—关卡 进度表（每用户每关卡一条记录）"""
-
     __tablename__ = "user_level_progress"
+
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(
-        Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
-    )
-    level_id = Column(
-        Integer, ForeignKey("Level.id", ondelete="CASCADE"), nullable=False
-    )
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    level_id = Column(Integer, ForeignKey("levels.id", ondelete="CASCADE"), nullable=False)
     is_unlocked = Column(Boolean, default=False)
     is_completed = Column(Boolean, default=False)
     current_part = Column(Integer, default=1)
     score = Column(Integer, default=0)
     attempts = Column(Integer, default=0)
     completed_at = Column(String(30), nullable=True)
-    # Part 级别数据 (JSON)，key = part 序号
     part_data = Column(Text, nullable=True)
-    # 关卡整体自定义数据 (JSON)
     level_data = Column(Text, nullable=True)
 
     user = relationship("User", back_populates="level_progresses")
     level = relationship("Level", back_populates="progress_records")
-
-
-# ============================================================
-#  Pydantic 校验 Schema
-# ============================================================
 
 
 class UserBase(BaseModel):
@@ -146,6 +128,7 @@ class PartSubmitResponse(BaseModel):
 class LevelSubmitRequest(BaseModel):
     player_id: int
     level_id: int
+    score_earned: int = 100
     custom_data: Optional[Any] = None
 
 

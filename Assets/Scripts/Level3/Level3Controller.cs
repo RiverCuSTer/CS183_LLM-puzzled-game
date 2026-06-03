@@ -11,6 +11,7 @@ public class Level3Controller : MonoBehaviour
 
     private int currentLayer;
     private bool isSliding;
+    private bool hasReportedLevelComplete;
 
     private readonly string[] layerNames =
     {
@@ -107,7 +108,15 @@ public class Level3Controller : MonoBehaviour
         }
 
         if (currentLayer >= layerNames.Length - 1)
+        {
+            if (!hasReportedLevelComplete)
+            {
+                hasReportedLevelComplete = true;
+                GameManager.MarkLevelCompleted(3);
+                GameManager.ReturnToLevelSelect();
+            }
             return;
+        }
 
         StartCoroutine(SlideToLayer(currentLayer + 1));
     }

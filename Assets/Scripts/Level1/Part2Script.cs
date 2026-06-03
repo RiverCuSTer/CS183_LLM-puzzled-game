@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Part2Script : MonoBehaviour
 {
     private const float FontScale = 0.15f;
+    private const float SubmitButtonTextSize = 14.4f;
 
     private enum Part2Phase
     {
@@ -54,6 +55,8 @@ public class Part2Script : MonoBehaviour
     private TMP_Text feedbackText;
     private Button submitButton;
     private Part2Phase phase;
+    private int roundNumber = 1;
+    private int totalRounds = 3;
     private bool initialized;
     private bool needsRebuild;
 
@@ -85,6 +88,11 @@ public class Part2Script : MonoBehaviour
 
     public void ConfigureRound(Level1Manager.LevelRoundData round)
     {
+        ConfigureRound(round, roundNumber, totalRounds);
+    }
+
+    public void ConfigureRound(Level1Manager.LevelRoundData round, int newRoundNumber, int newTotalRounds)
+    {
         if (round == null)
         {
             return;
@@ -93,6 +101,8 @@ public class Part2Script : MonoBehaviour
         vocabulary = round.vocabulary;
         mappingPoolOrder = round.mappingPoolOrder;
         sequencePoolOrder = round.sequencePoolOrder;
+        roundNumber = Mathf.Max(1, newRoundNumber);
+        totalRounds = Mathf.Max(roundNumber, newTotalRounds);
         needsRebuild = true;
 
         if (initialized && gameObject.activeInHierarchy)
@@ -174,7 +184,8 @@ public class Part2Script : MonoBehaviour
         mappingSlots.Clear();
         sequenceSlots.Clear();
 
-        feedbackText.text = "Use the left vocabulary table. Drag each ID to its token.";
+        feedbackText.text = "Round " + roundNumber + "/" + totalRounds + ": Drag each ID to the matching token.";
+        ApplyTextColor(feedbackText, new Color(0.8f, 0.95f, 1f, 1f));
 
         TMP_Text title = CreateText("MappingTitle", mappingArea, "Token ID Mapping", 120, Color.white, TextAlignmentOptions.Center);
         SetRect(title.rectTransform, new Vector2(0f, 0.82f), new Vector2(1f, 0.98f), Vector2.zero, Vector2.zero);
@@ -202,7 +213,8 @@ public class Part2Script : MonoBehaviour
         ClearPhaseObjects();
         sequenceSlots.Clear();
 
-        feedbackText.text = "Now sort the IDs into the model input sequence.";
+        feedbackText.text = "Round " + roundNumber + "/" + totalRounds + ": Sort the IDs into the sentence order.";
+        ApplyTextColor(feedbackText, new Color(0.8f, 0.95f, 1f, 1f));
 
         TMP_Text title = CreateText("SequenceTitle", mappingArea, "Input ID Sequence", 120, Color.white, TextAlignmentOptions.Center);
         SetRect(title.rectTransform, new Vector2(0f, 0.72f), new Vector2(1f, 0.9f), Vector2.zero, Vector2.zero);
@@ -414,7 +426,7 @@ public class Part2Script : MonoBehaviour
         TMP_Text tmp = textObject.GetComponent<TMP_Text>();
         tmp.text = text;
         tmp.fontSize = fontSize * FontScale;
-        ApplyWhiteText(tmp);
+        ApplyTextColor(tmp, color);
         tmp.alignment = alignment;
         tmp.enableWordWrapping = false;
         tmp.raycastTarget = false;
@@ -464,15 +476,20 @@ public class Part2Script : MonoBehaviour
 
     private void ApplyWhiteText(TMP_Text text)
     {
+        ApplyTextColor(text, Color.white);
+    }
+
+    private static void ApplyTextColor(TMP_Text text, Color color)
+    {
         if (text == null) return;
 
         text.enableVertexGradient = false;
-        text.color = Color.white;
-        text.faceColor = Color.white;
+        text.color = color;
+        text.faceColor = color;
         if (text.fontSharedMaterial != null)
         {
             text.fontMaterial = new Material(text.fontSharedMaterial);
-            text.fontMaterial.SetColor("_FaceColor", Color.white);
+            text.fontMaterial.SetColor("_FaceColor", color);
         }
 
         text.SetAllDirty();
@@ -490,6 +507,9 @@ public class Part2Script : MonoBehaviour
 
         Button button = buttonObject.GetComponent<Button>();
         TMP_Text buttonText = CreateText("Text", buttonObject.transform, label, 36, Color.white, TextAlignmentOptions.Center);
+        buttonText.text = label;
+        buttonText.fontSize = SubmitButtonTextSize;
+        ApplyTextColor(buttonText, Color.black);
         SetRect(buttonText.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
         return button;

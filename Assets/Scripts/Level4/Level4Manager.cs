@@ -435,8 +435,7 @@ if (features != null)
             completePanel.SetActive(true);
         }
         ShowHint("FFN Complete: Features have been expanded, activated, compressed, and output token generated!", rightSign);
-        PlayerPrefs.SetInt("Level4_Completed", 1);
-        PlayerPrefs.Save();
+        GameManager.MarkLevelCompleted(4);
         Debug.Log("LEVEL_COMPLETE:" + levelCompleteSignal);
         if (backendReceiver != null && !string.IsNullOrEmpty(backendMethodName))
         {
@@ -446,6 +445,7 @@ if (features != null)
         {
             onLevelComplete.Invoke();
         }
+        GameManager.ReturnToLevelSelect();
     }
     private void ShowHint(string message, Sprite icon)
     {

@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
 
             case GameManager.GameState.LevelSelect:
                 levelSelect.SetActive(true);
+                RefreshLevelSelectLocks();
                 break;
 
             case GameManager.GameState.Pause:
@@ -121,6 +122,36 @@ public class UIManager : MonoBehaviour
                 button.onClick.RemoveAllListeners();
                 int levelNumber = i + 1;
                 button.onClick.AddListener(() => GoToLevel(levelNumber));
+            }
+        }
+
+        RefreshLevelSelectLocks();
+    }
+
+    public void RefreshLevelSelectLocks()
+    {
+        ResolveLevelSelectReferences();
+
+        if (levelButtonContent == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < LevelButtonLabels.Length && i < levelButtonContent.childCount; i++)
+        {
+            Transform child = levelButtonContent.GetChild(i);
+            bool unlocked = GameManager.IsLevelUnlocked(i + 1);
+
+            Button button = child.GetComponent<Button>();
+            if (button != null)
+            {
+                button.interactable = unlocked;
+            }
+
+            TMP_Text text = child.GetComponentInChildren<TMP_Text>(true);
+            if (text != null)
+            {
+                text.text = unlocked ? LevelButtonLabels[i] : LevelButtonLabels[i] + " LOCKED";
             }
         }
     }

@@ -747,7 +747,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 228810930}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1392383512}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GoToLevel3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &228810930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,7 +2230,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 97690656
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2899,53 +2911,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0ea7ab59fb4f5a9dbf0df450050d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1Knowledge: 'Text Digitization:
+  level1Knowledge: 'Level 1: Text Digitization
 
-    In large language models, computers cannot
-    directly understand text. Therefore, natural language must first be converted
-    into a data format that computers can process.
+    A language model cannot read words directly. It first turns text into data.
 
+    Tokenization splits a sentence into smaller units called tokens. A token can be
+    a word, a character, or part of a word. In this level, each word is treated as
+    one token.
 
-    After simple text cleaning,
-    which ensures the data is standardized, text normalization is performed. Once
-    all preparatory work is completed, the process moves on to tokenization.
+    After tokenization, each token is matched with a number from a vocabulary. This
+    number is called a token ID. The sentence then becomes an ordered list of IDs,
+    such as [7421, 464, 3152, 1801].
 
+    Token IDs are useful for storage, but they do not carry meaning by themselves.
+    The model therefore converts IDs into embeddings. An embedding is a vector that
+    places a token in a semantic space.
 
-    Depending
-    on how the text is segmented, there are generally three types of tokens:
+    Tokens with related meanings or roles often appear closer together in this space.
+    This lets the model use math to compare words, find relationships, and prepare
+    the sentence for later neural network layers.'
+  level2Knowledge: 'Level 2: Self-Attention
 
-    word-level,
-    character-level, and subword-level.
+    Self-attention helps a model decide which words should influence each other.
 
-    In this work, we adopt a word-level
-    tokenization approach.
+    For each token, the model compares it with every other token, including itself.
+    A stronger connection means the token should pay more attention to that word
+    when building its meaning.
 
+    In this level, line thickness represents attention strength. Thick lines mean
+    high attention, medium lines mean normal attention, and thin lines mean low
+    attention.
 
-    After obtaining tokens, the model cannot directly
-    use them; they must be mapped to numbers, i.e., Token IDs. This process relies
-    on an existing vocabulary and converts instructions into a sequence of integers.
+    After the attention strengths are chosen, the values are combined into weights.
+    These raw weights show how much information each token receives from the whole
+    sentence.
 
+    The weights are then normalized, so they become easier to compare and add up in
+    a stable way. Normalization keeps the model from treating large raw numbers as
+    more important only because of scale.'
+  level3Knowledge: 'Level 3: From Words to Meaning
 
-    However,
-    Token IDs cannot be directly understood by neural networks (we will explain neural
-    networks in detail later). Since an ID is merely an index, it carries no mathematical
-    meaning. To allow the computer to understand the relationships between words,
-    large language models convert these discrete numbers into vectors that encode
-    semantic information. This process is called vectorization or embedding.
+    A model does more than read words one by one. It builds structure from the
+    sentence.
 
+    First, it detects word relations. For example, an adjective connects to the noun
+    it describes, and a verb connects to the object of the action.
 
-    These
-    vectors exist in a high-dimensional semantic space, where words with similar
-    meanings usually have similar vector representations. Through embeddings, the
-    semantic relationships in language are encoded as distances in a mathematical
-    space. In this way, the semantic relationships between words are encoded into
-    the vector space, enabling neural networks to capture the semantic structure
-    of language through mathematical operations.'
-  level2Knowledge: Paste Level 2 knowledge text here.
-  level3Knowledge: Paste Level 3 knowledge text here.
-  level4Knowledge: Paste Level 4 knowledge text here.
+    Next, it builds syntax. Words form groups, and those groups explain how the
+    sentence is organized. Nouns, verbs, modifiers, and prepositions each play
+    different roles.
+
+    Then the model connects syntax to meaning. The sentence becomes a scene: who is
+    acting, what object is affected, and where things are located.
+
+    The final layer shows that meaning can transfer to a new sentence. Once the
+    model understands roles such as actor, object, and location, it can apply the
+    same logic to different words and situations.'
+  level4Knowledge: 'Level 4: Feed-Forward Network
+
+    After attention, each token still needs more processing. A feed-forward network,
+    or FFN, refines the information inside each token.
+
+    The FFN expands a token into many features. A feature is a small piece of
+    information, such as whether the token is important, useful, or unrelated to
+    the current context.
+
+    Useful features are kept. Important features are intensified, so they have a
+    stronger effect. Irrelevant features are refrained or removed, so they do not
+    distract the model.
+
+    After filtering, the FFN compresses the useful features back into an output
+    representation. This output token carries clearer information than the original
+    input token.
+
+    In short, attention gathers context, and the FFN cleans and strengthens each
+    token based on that context.'
   knowledgeText: {fileID: 1993674690}
-  scrollRect: {fileID: 0}
+  scrollRect: {fileID: 1658927118}
 --- !u!1 &802901371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,7 +3847,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 97690656
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3939,7 +3981,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 97690656
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -5227,7 +5269,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1604271460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1392383512}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GoToLevel4
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1604271460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6506,7 +6560,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 75, y: -0.00021362305}
-  m_SizeDelta: {x: -210, y: 6191.17}
+  m_SizeDelta: {x: -210, y: 1180}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1993674690
 MonoBehaviour:
@@ -6528,48 +6582,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Text Digitization:
+  m_text: 'Level 1: Text Digitization
 
-    In large language models, computers cannot directly
-    understand text. Therefore, natural language must first be converted into a data
-    format that computers can process.
+    A language model cannot read words directly. It first turns text into data.
 
+    Tokenization splits a sentence into smaller units called tokens. A token can be
+    a word, a character, or part of a word. In this level, each word is treated as
+    one token.
 
-    After simple text cleaning, which ensures
-    the data is standardized, text normalization is performed. Once all preparatory
-    work is completed, the process moves on to tokenization.
+    After tokenization, each token is matched with a number from a vocabulary. This
+    number is called a token ID. The sentence then becomes an ordered list of IDs,
+    such as [7421, 464, 3152, 1801].
 
+    Token IDs are useful for storage, but they do not carry meaning by themselves.
+    The model therefore converts IDs into embeddings. An embedding is a vector that
+    places a token in a semantic space.
 
-    Depending on how
-    the text is segmented, there are generally three types of tokens:
-
-    word-level,
-    character-level, and subword-level.
-
-    In this work, we adopt a word-level
-    tokenization approach.
-
-
-    After obtaining tokens, the model cannot directly
-    use them; they must be mapped to numbers, i.e., Token IDs. This process relies
-    on an existing vocabulary and converts instructions into a sequence of integers.
-
-
-    However,
-    Token IDs cannot be directly understood by neural networks (we will explain neural
-    networks in detail later). Since an ID is merely an index, it carries no mathematical
-    meaning. To allow the computer to understand the relationships between words,
-    large language models convert these discrete numbers into vectors that encode
-    semantic information. This process is called vectorization or embedding.
-
-
-    These
-    vectors exist in a high-dimensional semantic space, where words with similar
-    meanings usually have similar vector representations. Through embeddings, the
-    semantic relationships in language are encoded as distances in a mathematical
-    space. In this way, the semantic relationships between words are encoded into
-    the vector space, enabling neural networks to capture the semantic structure
-    of language through mathematical operations.'
+    Tokens with related meanings or roles often appear closer together in this space.
+    This lets the model use math to compare words, find relationships, and prepare
+    the sentence for later neural network layers.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6727,7 +6758,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 97690656
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

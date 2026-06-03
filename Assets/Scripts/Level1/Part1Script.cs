@@ -23,6 +23,7 @@ public class Part1Script : MonoBehaviour
 
     [Header("UI")]
     public Button submitButton;
+    [SerializeField] private TMP_Text promptText;
 
     [Header("Part1 UI")]
     public GameObject Part1;
@@ -31,6 +32,8 @@ public class Part1Script : MonoBehaviour
     public GameObject Part2;
 
     private readonly List<LetterSlot> letterSlots = new List<LetterSlot>();
+    private int roundNumber = 1;
+    private int totalRounds = 3;
     private bool initialized;
     private bool needsRebuild = true;
 
@@ -55,6 +58,7 @@ public class Part1Script : MonoBehaviour
         {
             submitButton.onClick.RemoveListener(CheckAnswer);
             submitButton.onClick.AddListener(CheckAnswer);
+            SetButtonTextColor(submitButton, Color.black);
         }
 
         if (needsRebuild)
@@ -80,8 +84,15 @@ public class Part1Script : MonoBehaviour
 
     public void ConfigureRound(string newSentence, int newTokenCount)
     {
+        ConfigureRound(newSentence, newTokenCount, roundNumber, totalRounds);
+    }
+
+    public void ConfigureRound(string newSentence, int newTokenCount, int newRoundNumber, int newTotalRounds)
+    {
         sentence = newSentence;
         tokenCount = newTokenCount;
+        roundNumber = Mathf.Max(1, newRoundNumber);
+        totalRounds = Mathf.Max(roundNumber, newTotalRounds);
         needsRebuild = true;
 
         if (initialized && gameObject.activeInHierarchy)
@@ -118,6 +129,8 @@ public class Part1Script : MonoBehaviour
         tokenPoolRect.anchoredPosition = new Vector2(0f, -90f);
         tokenPoolRect.sizeDelta = new Vector2(600, 120);
 
+        EnsurePromptText();
+
         HorizontalLayoutGroup layout = textContainer.GetComponent<HorizontalLayoutGroup>();
         if (layout == null)
         {
@@ -145,6 +158,7 @@ public class Part1Script : MonoBehaviour
         ClearChildren(textContainer);
         ClearChildren(tokenPool);
         letterSlots.Clear();
+        UpdatePromptText();
 
         string[] words = sentence.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
         tokenCount = Mathf.Max(0, words.Length - 1);
@@ -240,6 +254,62 @@ public class Part1Script : MonoBehaviour
         }
 
         text.SetAllDirty();
+    }
+
+    private static void ApplyTextColor(TMP_Text text, Color color)
+    {
+        if (text == null) return;
+
+        text.enableVertexGradient = false;
+        text.color = color;
+        text.faceColor = color;
+        if (text.fontSharedMaterial != null)
+        {
+            text.fontMaterial = new Material(text.fontSharedMaterial);
+            text.fontMaterial.SetColor("_FaceColor", color);
+        }
+
+        text.SetAllDirty();
+    }
+
+    private void EnsurePromptText()
+    {
+        if (promptText != null)
+        {
+            return;
+        }
+
+        GameObject promptObject = new GameObject("RoundPrompt", typeof(RectTransform), typeof(TextMeshProUGUI));
+        promptObject.transform.SetParent(transform, false);
+        promptObject.layer = gameObject.layer;
+
+        promptText = promptObject.GetComponent<TMP_Text>();
+        promptText.fontSize = 28f;
+        promptText.alignment = TextAlignmentOptions.Center;
+        promptText.enableWordWrapping = false;
+        promptText.raycastTarget = false;
+        ApplyTextColor(promptText, new Color(0.8f, 0.95f, 1f, 1f));
+
+        RectTransform promptRect = promptText.rectTransform;
+        promptRect.anchorMin = new Vector2(0.12f, 0.82f);
+        promptRect.anchorMax = new Vector2(0.88f, 0.92f);
+        promptRect.offsetMin = Vector2.zero;
+        promptRect.offsetMax = Vector2.zero;
+    }
+
+    private void UpdatePromptText()
+    {
+        EnsurePromptText();
+        promptText.text = "Round " + roundNumber + "/" + totalRounds + ": Drag the separators into the spaces between words.";
+        ApplyTextColor(promptText, new Color(0.8f, 0.95f, 1f, 1f));
+    }
+
+    private static void SetButtonTextColor(Button button, Color color)
+    {
+        if (button == null) return;
+
+        TMP_Text text = button.GetComponentInChildren<TMP_Text>(true);
+        ApplyTextColor(text, color);
     }
 
     private void CreateGapSlot(bool isTarget)

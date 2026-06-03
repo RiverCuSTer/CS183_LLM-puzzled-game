@@ -99,7 +99,7 @@ public class Level1Manager : MonoBehaviour
         Part2Script part2 = GetPart2();
         if (part2 != null)
         {
-            part2.ConfigureRound(GetCurrentRound());
+            part2.ConfigureRound(GetCurrentRound(), currentRoundIndex + 1, rounds.Length);
             tokens = part2.GetTokens();
             tokenIDs = part2.GetTokenIDs();
         }
@@ -139,6 +139,8 @@ public class Level1Manager : MonoBehaviour
     public void CompleteLevel()
     {
         Debug.Log("Level1 completed!");
+        GameManager.MarkLevelCompleted(1);
+        GameManager.ReturnToLevelSelect();
     }
 
     private LevelRoundData GetCurrentRound()
@@ -163,7 +165,7 @@ public class Level1Manager : MonoBehaviour
         }
 
         int markerCount = round.vocabulary == null ? 0 : Mathf.Max(0, round.vocabulary.Length - 1);
-        part1.ConfigureRound(round.sentence, markerCount);
+        part1.ConfigureRound(round.sentence, markerCount, currentRoundIndex + 1, rounds.Length);
         part1.RebuildNow();
         return part1;
     }

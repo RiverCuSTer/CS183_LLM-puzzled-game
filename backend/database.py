@@ -1,17 +1,21 @@
-"""数据库引擎与会话管理"""
+import os
+from pathlib import Path
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "mysql+pymysql://root:gzhnd010609@localhost:3306/cs183?charset=utf8mb4"
 
-engine = create_engine(DATABASE_URL)
+BACKEND_DIR = Path(__file__).resolve().parent
+DEFAULT_DATABASE_URL = f"sqlite:///{BACKEND_DIR / 'game_progress.db'}"
+DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
 def init_database():
-    """导入所有模型后建表（避免循环依赖）"""
-    # 确保 model_class 中的模型被 Base 扫描到
     import model_class  # noqa: F401
 
     Base.metadata.create_all(bind=engine)

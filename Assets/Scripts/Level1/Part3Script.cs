@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class Part3Script : MonoBehaviour
 {
     private const float FontScale = 0.15f;
+    private const float RegionProjectionScale = 95f;
+    private const float SubmitButtonTextSize = 14.4f;
 
     [System.Serializable]
     private class EmbeddingToken
@@ -316,7 +318,7 @@ public class Part3Script : MonoBehaviour
 
     private Vector2 Project2D(Vector3 point)
     {
-        return new Vector2(point.x, point.y) * 145f;
+        return new Vector2(point.x, point.y) * RegionProjectionScale;
     }
 
     private RectTransform CreatePanel(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax)
@@ -378,6 +380,9 @@ public class Part3Script : MonoBehaviour
 
         Button button = obj.GetComponent<Button>();
         TMP_Text text = CreateText("Text", obj.transform, label, 72, Color.white, TextAlignmentOptions.Center);
+        text.text = label;
+        text.fontSize = SubmitButtonTextSize;
+        ApplyTextColor(text, Color.black);
         SetRect(text.rectTransform, Vector2.zero, Vector2.one);
         return button;
     }

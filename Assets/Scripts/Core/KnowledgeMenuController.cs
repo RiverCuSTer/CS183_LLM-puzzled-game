@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class KnowledgeMenuController : MonoBehaviour
 {
+    private const float ContentVerticalPadding = 32f;
+
     [TextArea(8, 30)]
     public string level1Knowledge = "";
 
@@ -49,11 +51,36 @@ public class KnowledgeMenuController : MonoBehaviour
         if (knowledgeText != null)
         {
             knowledgeText.text = text;
+            ResizeKnowledgeContent();
         }
 
         if (scrollRect != null)
         {
             scrollRect.verticalNormalizedPosition = 1f;
         }
+    }
+
+    private void ResizeKnowledgeContent()
+    {
+        RectTransform textRect = knowledgeText.rectTransform;
+        if (textRect == null)
+        {
+            return;
+        }
+
+        if (scrollRect == null)
+        {
+            scrollRect = knowledgeText.GetComponentInParent<ScrollRect>();
+        }
+
+        knowledgeText.ForceMeshUpdate();
+
+        float viewportHeight = scrollRect != null && scrollRect.viewport != null
+            ? scrollRect.viewport.rect.height
+            : 0f;
+        float targetHeight = Mathf.Max(knowledgeText.preferredHeight + ContentVerticalPadding, viewportHeight);
+
+        textRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+        textRect.anchoredPosition = new Vector2(textRect.anchoredPosition.x, 0f);
     }
 }
