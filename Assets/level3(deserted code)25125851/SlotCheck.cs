@@ -1,4 +1,4 @@
-using UnityEngine;
+using UnityEngine;//   25125851  chuzhaoning
 using TMPro;
 
 public class SlotCheck : MonoBehaviour
