@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">System Interaction Flow</title>
+  <desc id="desc">A diagram showing how player actions move through UI, game management, level controllers, validation, feedback, and scene progression.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475569; }
+      .box { stroke-width: 2; rx: 12; }
+      .label { font: 700 19px Arial, sans-serif; fill: #111827; }
+      .small { font: 400 15px Arial, sans-serif; fill: #334155; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .return { stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text class="title" x="640" y="58" text-anchor="middle">System / Interaction Flow</text>
+  <text class="subtitle" x="640" y="88" text-anchor="middle">Player input is handled by Unity UI scripts, level controllers, validation logic, and feedback systems.</text>
+
+  <rect class="box" x="70" y="170" width="170" height="90" fill="#dbeafe" stroke="#2563eb"/>
+  <text class="label" x="155" y="205" text-anchor="middle">Player</text>
+  <text class="small" x="155" y="233" text-anchor="middle">click / drag / drop</text>
+
+  <rect class="box" x="300" y="170" width="190" height="90" fill="#e0f2fe" stroke="#0284c7"/>
+  <text class="label" x="395" y="205" text-anchor="middle">UI Layer</text>
+  <text class="small" x="395" y="233" text-anchor="middle">menus and input events</text>
+
+  <rect class="box" x="550" y="170" width="190" height="90" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label" x="645" y="205" text-anchor="middle">Game Manager</text>
+  <text class="small" x="645" y="233" text-anchor="middle">state and scene flow</text>
+
+  <rect class="box" x="800" y="170" width="210" height="90" fill="#dcfce7" stroke="#16a34a"/>
+  <text class="label" x="905" y="205" text-anchor="middle">Level Controller</text>
+  <text class="small" x="905" y="233" text-anchor="middle">level-specific rules</text>
+
+  <rect class="box" x="1060" y="170" width="170" height="90" fill="#ede9fe" stroke="#7c3aed"/>
+  <text class="label" x="1145" y="205" text-anchor="middle">Puzzle Objects</text>
+  <text class="small" x="1145" y="233" text-anchor="middle">slots / blocks / nodes</text>
+
+  <path class="arrow" d="M240 215 H287"/>
+  <path class="arrow" d="M490 215 H537"/>
+  <path class="arrow" d="M740 215 H787"/>
+  <path class="arrow" d="M1010 215 H1047"/>
+
+  <rect class="box" x="300" y="395" width="190" height="95" fill="#f1f5f9" stroke="#64748b"/>
+  <text class="label" x="395" y="433" text-anchor="middle">Validation</text>
+  <text class="small" x="395" y="463" text-anchor="middle">check answer state</text>
+
+  <rect class="box" x="550" y="395" width="190" height="95" fill="#fee2e2" stroke="#dc2626"/>
+  <text class="label" x="645" y="433" text-anchor="middle">Feedback</text>
+  <text class="small" x="645" y="463" text-anchor="middle">visual / audio response</text>
+
+  <rect class="box" x="800" y="395" width="210" height="95" fill="#ccfbf1" stroke="#0f766e"/>
+  <text class="label" x="905" y="433" text-anchor="middle">Progression</text>
+  <text class="small" x="905" y="463" text-anchor="middle">complete level / next scene</text>
+
+  <path class="arrow" d="M1145 260 C1145 355 520 340 420 395"/>
+  <path class="arrow" d="M490 442 H537"/>
+  <path class="arrow" d="M740 442 H787"/>
+  <path class="arrow return" d="M905 395 C905 330 675 315 645 260"/>
+  <path class="arrow return" d="M645 490 C520 575 220 555 155 260"/>
+</svg>
