@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Coordinates Level 1 rounds across tokenization, token ID mapping, and embedding placement.
 using UnityEngine;
 
 public class Level1Manager : MonoBehaviour

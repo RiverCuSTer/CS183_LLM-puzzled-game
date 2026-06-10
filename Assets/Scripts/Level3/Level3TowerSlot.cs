@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin, Zhiyu Huang; Description: Detects whether the expected Level 3 word block overlaps a tower slot trigger.
 using System;
 using System.Collections.Generic;
 using UnityEngine;

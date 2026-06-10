@@ -1,9 +1,10 @@
+// Responsible team member: Zhiyan Lin; Description: Controls Level 3 layer progression and camera sliding between layers.
 using System.Collections;
 using UnityEngine;
 
 public class Level3Controller : MonoBehaviour
 {
-    private const float UiScale = 3f;
+    private const float UiScale = 1.8f;
 
     [SerializeField] private float layerHeight = 12f;
     [SerializeField] private float slideDuration = 0.8f;
@@ -16,7 +17,7 @@ public class Level3Controller : MonoBehaviour
     private readonly string[] layerNames =
     {
         "1 Word Relations",
-        "2 Syntax Towers",
+        "",
         "3 Semantic Scene",
         ""
     };
@@ -24,7 +25,7 @@ public class Level3Controller : MonoBehaviour
     private readonly string[] instructions =
     {
         "Connect word relations before climbing upward.",
-        "Drag physical word blocks into the syntax towers; nouns are heavier, modifiers are lighter.",
+        "",
         "",
         ""
     };

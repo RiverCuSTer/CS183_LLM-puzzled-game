@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Controls the Level 2 dialogue flow, symbol-slot stage, and attention input stage.
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -161,7 +162,7 @@ public class Shift : MonoBehaviour
 
         if (attentionGraph == null)
         {
-            Debug.LogError("Shift: attentionGraph 没有赋值。");
+            Debug.LogError("Shift: attentionGraph is not assigned.");
             return;
         }
 

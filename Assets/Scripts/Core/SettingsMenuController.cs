@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Controls the settings menu and reset-progress confirmation flow.
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

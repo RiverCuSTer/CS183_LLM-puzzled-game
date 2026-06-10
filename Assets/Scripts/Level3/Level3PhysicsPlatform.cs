@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Configures the 2D physics platform used by Level 3 word blocks.
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]

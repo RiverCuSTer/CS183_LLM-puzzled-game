@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Displays level-specific knowledge text inside the knowledge menu.
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

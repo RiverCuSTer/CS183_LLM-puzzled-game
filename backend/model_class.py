@@ -1,3 +1,4 @@
+# Responsible team member: Jiayu Guo, Zhiyan Lin; Description: Defines SQLAlchemy database models and Pydantic request and response schemas for game progress data.
 from typing import Any, List, Optional
 
 from pydantic import BaseModel

@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyu Huang, Jiayu Guo; Description: Coordinates the Level 4 feature expansion, activation, deletion, output ordering, and completion flow.
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;

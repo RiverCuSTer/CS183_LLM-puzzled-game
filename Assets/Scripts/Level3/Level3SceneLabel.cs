@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Draws configurable world-space GUI labels for Level 3 scenes.
 using UnityEngine;
 
 public class Level3SceneLabel : MonoBehaviour
@@ -7,7 +8,7 @@ public class Level3SceneLabel : MonoBehaviour
     [SerializeField] private Vector2 guiSize = new Vector2(180f, 44f);
     [SerializeField] private int fontSize = 16;
     [SerializeField] private bool bold;
-    [SerializeField] private float uiScale = 3f;
+    [SerializeField] private float uiScale = 1.6f;
 
     private Camera mainCamera;
 

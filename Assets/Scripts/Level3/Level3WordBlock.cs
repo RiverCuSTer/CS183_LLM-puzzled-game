@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin, Zhiyu Huang; Description: Implements draggable 2D physics word blocks for Level 3 syntax stacking.
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]

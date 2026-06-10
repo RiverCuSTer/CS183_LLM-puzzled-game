@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Validates attention weights and drives success or failure feedback for the attention puzzle.
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,12 +29,12 @@ public class AttentionInputManager : MonoBehaviour
     public float perfectStarDuration = 1.0f;
     public float redLineDuration = 5f;
 
-    // 节点顺序必须和 AttentionGraph 保持一致：
+    // Node order must match AttentionGraph:
     // 0 = Who
     // 1 = Am
     // 2 = I
     //
-    // 0=细(0.5), 1=中(1), 2=粗(2)
+    // 0 = thin (0.5), 1 = medium (1), 2 = thick (2)
     private int[,] correctWeights = new int[3, 3]
     {
         { 2, 1, 0 }, // Who -> Who, Who -> Am, Who -> I
@@ -105,18 +106,18 @@ public class AttentionInputManager : MonoBehaviour
 
     int FloatToLevel(float value)
     {
-        if (value >= 1.5f) return 2;   // 粗线 = 2
-        if (value >= 0.75f) return 1;  // 中线 = 1
-        return 0;                      // 细线 = 0.5
+        if (value >= 1.5f) return 2;   // Thick line = 2
+        if (value >= 0.75f) return 1;  // Medium line = 1
+        return 0;                      // Thin line = 0.5
     }
 
     void CalculateWeightCounts(float[,] weights)
     {
-        // 强制设定
+        // Forced values for this puzzle step.
         whoWeight = 7;
         amWeight = 9;
         iWeight = 7;
-        Debug.Log($"砝码数量（强制）：Who={whoWeight}, Am={amWeight}, I={iWeight}");
+        Debug.Log($"Forced weight counts: Who={whoWeight}, Am={amWeight}, I={iWeight}");
     }
     IEnumerator SuccessFlow(Shift shift)
     {

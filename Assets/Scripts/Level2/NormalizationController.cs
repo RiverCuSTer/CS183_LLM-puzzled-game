@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Runs the visual normalization sequence for raw attention weights.
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,7 +9,7 @@ public class NormalizationController : MonoBehaviour
     [Header("Button")]
     public Button normalizeButton;
 
-    [Header("Number UI，放在三个托盘上方")]
+    [Header("Number UI, placed above the three trays")]
     public GameObject numberPanel;
     public TextMeshProUGUI whoNumberText;
     public TextMeshProUGUI amNumberText;
@@ -121,8 +122,8 @@ public class NormalizationController : MonoBehaviour
         float amValue = amWeight / total;
         float iValue = iWeight / total;
 
-        // 为了显示出来的两位小数严格加起来等于 1.00：
-        // 先四舍五入前两个，第三个用 1 - 前两个。
+        // Keep the displayed two-decimal values adding up to exactly 1.00.
+        // Round the first two values, then compute the third as 1 minus them.
         float whoDisplay = Mathf.Round(whoValue * 100f) / 100f;
         float amDisplay = Mathf.Round(amValue * 100f) / 100f;
         float iDisplay = 1f - whoDisplay - amDisplay;
@@ -186,8 +187,8 @@ public class NormalizationController : MonoBehaviour
             GameManager.ReturnToLevelSelect();
         }
 
-        // 文字你说等会儿再加，所以这里可以留空。
-        // 如果你想先测试，也可以临时写一点内容。
+        // Popup copy can stay empty until the final text is ready.
+        // Temporary test copy can be added here if needed.
         if (purposeText != null && string.IsNullOrEmpty(purposeText.text))
             purposeText.text = "";
 

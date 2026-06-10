@@ -1,5 +1,6 @@
+// Responsible team member: Zhiyan Lin; Description: Defines shared game state values for menu and gameplay flow.
 using UnityEngine;
-using UnityEngine.SceneManagement; // 用于切换场景
+using UnityEngine.SceneManagement; // Used for scene switching.
 
 public enum GameState
 {

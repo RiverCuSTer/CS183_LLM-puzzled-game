@@ -1,3 +1,4 @@
+// Responsible team member: Zhaoning Chu; Description: Checks the legacy Level 3 word-slot puzzle answer state.
 using UnityEngine;//25125851  chuzhaoning
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -5,10 +6,10 @@ using System.Linq;
 
 public class SlotChecker : MonoBehaviour
 {
-    [Tooltip("正确的单词（只填纯小写单词，不要加 Word_ 前缀！）")]
+    [Tooltip("Correct words. Use lowercase words only, without the Word_ prefix.")]
     public List<string> correctNames = new List<string>();
 
-    [Header("UI 反馈（可选）")]
+    [Header("UI Feedback (Optional)")]
     public Text resultText;
     public Image slotBackground;
     public Color successColor = Color.green;
@@ -22,7 +23,7 @@ public class SlotChecker : MonoBehaviour
 
         currentWords.Add(word);
 
-        // 满 3 个自动判定
+        // Automatically check the answer after three words are placed.
         if (currentWords.Count >= correctNames.Count)
         {
             CheckAnswer();
@@ -38,10 +39,10 @@ public class SlotChecker : MonoBehaviour
         {
             string objName = word.gameObject.name;
 
-            // 清理可能存在的后缀
+            // Remove any optional suffix.
             if (objName.Contains("(Clone)")) objName = objName.Replace("(Clone)", "");
 
-            // 【核心修复】自动剔除 "Word_" 前缀！
+            // Remove the "Word_" prefix automatically.
             if (objName.StartsWith("Word_"))
             {
                 objName = objName.Replace("Word_", "");
@@ -50,7 +51,7 @@ public class SlotChecker : MonoBehaviour
             inputNames.Add(objName.Trim().ToLower());
         }
 
-        // 无序比对
+        // Compare without requiring order.
         bool isCorrect = false;
         if (inputNames.Count == correctNames.Count)
         {
@@ -62,16 +63,16 @@ public class SlotChecker : MonoBehaviour
         if (isCorrect)
         {
             isCompleted = true;
-            Debug.Log($"[{gameObject.name}] 判定结果: 通过！");
+            Debug.Log($"[{gameObject.name}] Check result: passed.");
             if (resultText != null) resultText.text = "Correct!";
             if (slotBackground != null) slotBackground.color = successColor;
         }
         else
         {
-            Debug.Log($"[{gameObject.name}] 判定结果: 错误！收集到的词是: {string.Join(", ", inputNames)}");
+            Debug.Log($"[{gameObject.name}] Check result: failed. Collected words: {string.Join(", ", inputNames)}");
             if (resultText != null) resultText.text = "Wrong!";
 
-            // 判定错误：让所有卡片重新出现，并回到原位
+            // On failure, show all cards again and return them to their start positions.
             foreach (var word in currentWords)
             {
                 word.ReturnToHome();

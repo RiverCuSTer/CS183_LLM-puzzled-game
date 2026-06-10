@@ -1,8 +1,9 @@
+// Responsible team member: Zhiyan Lin; Description: Manages the Level 3 abstract logic layer and validates complex semantic placement rules.
 using UnityEngine;
 
 public class Level3Layer4Manager : MonoBehaviour
 {
-    private const float UiScale = 3f;
+    private const float UiScale = 1.8f;
 
     [SerializeField] private Vector2 sceneCenter = new Vector2(0f, 35.35f);
     [SerializeField] private Vector2 sceneHalfSize = new Vector2(4.1f, 1.9f);
@@ -134,9 +135,9 @@ public class Level3Layer4Manager : MonoBehaviour
 
     private void ApplyPresentationLayout()
     {
-        ConfigureLabel("L4_Header", new Vector3(0f, 40.25f, 0f), "Layer 4: Abstract Logic", new Color(1f, 1f, 1f, 0.82f), new Vector2(520f, 58f), 22, true, 1.25f);
-        ConfigureLabel("L4_Sentence", new Vector3(0f, 38.85f, 0f), "The dog hid under the table while the scientist placed the cat on the carpet.", new Color(1f, 1f, 1f, 0.74f), new Vector2(820f, 68f), 20, true, 1.2f);
-        ConfigureLabel("L4_SemanticWhiteArea", new Vector3(0f, 35.35f, 0f), "", new Color(1f, 1f, 1f, 0.9f), new Vector2(470f, 240f), 12, false, 1.8f);
+        ConfigureLabel("L4_Header", new Vector3(0f, 40.25f, 0f), "Layer 4: Abstract Logic", new Color(1f, 1f, 1f, 0.82f), new Vector2(520f, 58f), 18, true, 1.1f);
+        ConfigureLabel("L4_Sentence", new Vector3(0f, 38.95f, 0f), "The dog hid under the table while the scientist placed the cat on the carpet.", new Color(1f, 1f, 1f, 0.74f), new Vector2(820f, 68f), 17, true, 1.05f);
+        ConfigureLabel("L4_SemanticWhiteArea", new Vector3(0f, 35.15f, 0f), "", new Color(1f, 1f, 1f, 0.9f), new Vector2(470f, 240f), 12, false, 1.55f);
 
         LayoutPiece("dog", -4.25f);
         LayoutPiece("table", -2.12f);
@@ -163,8 +164,8 @@ public class Level3Layer4Manager : MonoBehaviour
         if (piece == null)
             return;
 
-        piece.transform.position = new Vector3(x, 32.1f, 0f);
-        piece.ConfigureInteractionSize(new Vector2(90f, 90f), 2.025f);
+        piece.transform.position = new Vector3(x, 31.95f, 0f);
+        piece.ConfigureInteractionSize(new Vector2(90f, 90f), 1.7f);
         piece.CaptureStartPosition();
 
         Level3SceneLabel sceneLabel = piece.GetComponent<Level3SceneLabel>();
@@ -172,22 +173,4 @@ public class Level3Layer4Manager : MonoBehaviour
             sceneLabel.enabled = false;
     }
 
-    private Color GetPieceColor(string pieceId)
-    {
-        switch (pieceId)
-        {
-            case "scientist":
-                return new Color(0.84f, 0.77f, 0.93f, 1f);
-            case "cat":
-                return new Color(0.98f, 0.82f, 0.58f, 1f);
-            case "dog":
-                return new Color(0.85f, 0.64f, 0.44f, 1f);
-            case "table":
-                return new Color(0.64f, 0.49f, 0.36f, 1f);
-            case "carpet":
-                return new Color(0.59f, 0.82f, 0.88f, 1f);
-            default:
-                return Color.white;
-        }
-    }
 }

@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu; Description: Accepts unique triangle, square, and circle symbols for the Level 2 symbol-slot puzzle.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,13 +31,13 @@ public class UISymbolSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("插槽收到 OnDrop: " + gameObject.name);
+        Debug.Log("Slot received OnDrop: " + gameObject.name);
 
         GameObject dragObject = eventData.pointerDrag;
 
         if (dragObject == null)
         {
-            Debug.LogWarning("OnDrop 失败: pointerDrag 为空");
+            Debug.LogWarning("OnDrop failed: pointerDrag is null.");
             return;
         }
 
@@ -46,7 +47,7 @@ public class UISymbolSlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            Debug.Log("OnDrop 插槽拒绝放入");
+            Debug.Log("OnDrop slot rejected placement.");
         }
     }
 
@@ -54,13 +55,13 @@ public class UISymbolSlot : MonoBehaviour, IDropHandler
     {
         if (IsFull)
         {
-            Debug.Log("插槽已满");
+            Debug.Log("Slot is full.");
             return false;
         }
 
         string shapeType = GetShapeType(dragObject);
 
-        Debug.Log("检测图形类型: " + dragObject.name + " -> " + shapeType);
+        Debug.Log("Detected shape type: " + dragObject.name + " -> " + shapeType);
 
         if (shapeType == "Unknown")
         {
@@ -72,9 +73,9 @@ public class UISymbolSlot : MonoBehaviour, IDropHandler
 
     private string GetShapeType(GameObject obj)
     {
-        if (obj.name.Contains("Triangle") || obj.name.Contains("三角形")) return "Triangle";
-        if (obj.name.Contains("Square") || obj.name.Contains("正方形")) return "Square";
-        if (obj.name.Contains("Circle") || obj.name.Contains("圆形")) return "Circle";
+        if (obj.name.Contains("Triangle") || obj.name.Contains("\u4e09\u89d2\u5f62")) return "Triangle";
+        if (obj.name.Contains("Square") || obj.name.Contains("\u6b63\u65b9\u5f62")) return "Square";
+        if (obj.name.Contains("Circle") || obj.name.Contains("\u5706\u5f62")) return "Circle";
 
         return "Unknown";
     }

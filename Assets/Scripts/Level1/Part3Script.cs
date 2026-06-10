@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Builds the embedding-space puzzle and validates token placement in semantic regions.
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

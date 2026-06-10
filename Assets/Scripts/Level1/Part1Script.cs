@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Builds the Level 1 tokenization puzzle and validates separator placement between words.
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

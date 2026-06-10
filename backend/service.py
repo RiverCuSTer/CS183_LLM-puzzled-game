@@ -1,3 +1,4 @@
+# Responsible team member: Jiayu Guo, Zhiyan Lin; Description: Provides backend service logic for seeding levels, user progress, answer validation, and unlock handling.
 import json
 from datetime import datetime
 from typing import Optional

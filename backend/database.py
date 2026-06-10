@@ -1,3 +1,4 @@
+# Responsible team member: Jiayu Guo, Zhiyan Lin; Description: Configures the SQLAlchemy database engine, session factory, and database initialization helpers.
 import os
 from pathlib import Path
 

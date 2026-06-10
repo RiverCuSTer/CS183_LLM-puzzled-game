@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Implements draggable UI symbol items and places them into compatible symbol slots.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,7 +25,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("新版开始拖拽: " + gameObject.name);
+        Debug.Log("New drag started: " + gameObject.name);
 
         canvasGroup.alpha = 0.5f;
         canvasGroup.blocksRaycasts = false;
@@ -59,7 +60,7 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("新版结束拖拽: " + gameObject.name);
+        Debug.Log("New drag ended: " + gameObject.name);
 
         TryPlaceToSlot(eventData);
 
@@ -78,39 +79,39 @@ public class UIDragDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         if (EventSystem.current == null)
         {
-            Debug.LogWarning("场景中没有 EventSystem");
+            Debug.LogWarning("No EventSystem found in the scene.");
             return;
         }
 
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        Debug.Log("结束拖拽时检测到 UI 数量: " + results.Count);
+        Debug.Log("UI hits detected at drag end: " + results.Count);
 
         foreach (RaycastResult result in results)
         {
-            Debug.Log("Raycast 命中: " + result.gameObject.name);
+            Debug.Log("Raycast hit: " + result.gameObject.name);
 
             UISymbolSlot slot = result.gameObject.GetComponentInParent<UISymbolSlot>();
 
             if (slot != null)
             {
-                Debug.Log("找到 UISymbolSlot: " + slot.gameObject.name);
+                Debug.Log("Found UISymbolSlot: " + slot.gameObject.name);
 
                 if (slot.CanAccept(gameObject))
                 {
-                    Debug.Log("插槽允许放入: " + slot.gameObject.name);
+                    Debug.Log("Slot accepted placement: " + slot.gameObject.name);
                     slot.PlaceSymbol(gameObject);
                 }
                 else
                 {
-                    Debug.Log("插槽拒绝放入，可能已满、重复、或图形类型 Unknown");
+                    Debug.Log("Slot rejected placement because it may be full, duplicated, or an unknown shape type.");
                 }
 
                 return;
             }
         }
 
-        Debug.Log("没有找到任何 UISymbolSlot");
+        Debug.Log("No UISymbolSlot found.");
     }
 }

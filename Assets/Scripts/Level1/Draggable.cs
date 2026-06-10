@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Implements draggable separator markers that snap to the nearest available letter gap.
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;

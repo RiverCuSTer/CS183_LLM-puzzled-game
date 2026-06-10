@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Manages global game state, scene loading, level navigation, and level unlock progress.
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

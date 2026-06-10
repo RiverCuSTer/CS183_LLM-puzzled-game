@@ -1,18 +1,19 @@
+// Responsible team member: Zhiyan Lin; Description: Provides a simple UI drop target that parents dropped objects to the target transform.
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DropHandler : MonoBehaviour, IDropHandler
 {
-    // 当有拖拽对象放到这个字母上时触发
+    // Triggered when a dragged object is dropped onto this letter.
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag; // 拖拽的对象
+        GameObject dropped = eventData.pointerDrag; // The dragged object.
         if (dropped != null)
         {
-            // 将拖拽对象设置为当前字母的子对象
+            // Parent the dragged object to the current letter.
             dropped.transform.SetParent(transform);
 
-            // 对齐到字母中心
+            // Align it to the center of the letter.
             dropped.transform.localPosition = Vector3.zero;
         }
     }
