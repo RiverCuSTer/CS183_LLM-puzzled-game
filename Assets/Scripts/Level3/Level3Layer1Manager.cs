@@ -1,10 +1,11 @@
+// Responsible team member: Zhiyan Lin; Description: Manages the Level 3 word-relation connection layer and validates completed relations.
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Level3Layer1Manager : MonoBehaviour
 {
-    private const float UiScale = 3f;
-    private const float PendingLineWidth = 6f;
+    private const float UiScale = 1.8f;
+    private const float PendingLineWidth = 4f;
 
     public static Level3Layer1Manager Instance { get; private set; }
 
@@ -54,7 +55,7 @@ public class Level3Layer1Manager : MonoBehaviour
         };
 
         if (IsComplete)
-            GUI.Label(new Rect(Screen.width * 0.5f - 840f, Screen.height - 180f, 1680f, 90f), "All word relations are connected. Climb to the next layer.", style);
+            GUI.Label(new Rect(Screen.width * 0.5f - 760f, 220f, 1520f, 64f), "All word relations are connected. Climb to the next layer.", style);
 
         GUIStyle countStyle = new GUIStyle(GUI.skin.label)
         {

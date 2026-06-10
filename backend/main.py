@@ -1,3 +1,4 @@
+# Responsible team member: Jiayu Guo, Zhiyan Lin; Description: Bootstraps the backend database seed data and starts the FastAPI server with Uvicorn.
 import uvicorn
 
 from database import init_database

@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Represents an expandable gap slot for token separator placement in Level 1.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyu Huang; Description: Displays attention weight counts on a balance scale and plays the stabilization animation.
 using System;
 using System.Collections;
 using UnityEngine;

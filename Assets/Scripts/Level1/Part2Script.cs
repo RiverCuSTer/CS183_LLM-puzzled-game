@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Builds the token-to-ID mapping and ordered input ID sequence puzzles for Level 1.
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

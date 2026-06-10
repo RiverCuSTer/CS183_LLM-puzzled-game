@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyu Huang, Jiayu Guo; Description: Represents a Level 4 output slot that highlights, tracks occupancy, and receives feature blocks.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

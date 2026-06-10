@@ -1,15 +1,16 @@
+// Responsible team member: Zhiyan Lin; Description: Draws and handles selectable word relation nodes for Level 3 layer one.
 using UnityEngine;
 
 public class Level3RelationNode : MonoBehaviour
 {
-    private const float UiScale = 3f;
+    private const float UiScale = 2f;
 
     [SerializeField] private string nodeId;
     [SerializeField] private string displayText;
     [SerializeField] private Color normalColor = new Color(1f, 1f, 1f, 0.88f);
     [SerializeField] private Color selectedColor = new Color(0.98f, 0.9f, 0.46f, 0.96f);
     [SerializeField] private Color matchedColor = new Color(0.62f, 0.92f, 0.72f, 0.96f);
-    [SerializeField] private Vector2 guiSize = new Vector2(160f, 48f);
+    [SerializeField] private Vector2 guiSize = new Vector2(170f, 52f);
 
     private Camera mainCamera;
     private bool isSelected;
@@ -42,7 +43,7 @@ public class Level3RelationNode : MonoBehaviour
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button)
         {
             alignment = TextAnchor.MiddleCenter,
-            fontSize = Mathf.RoundToInt(16 * UiScale),
+            fontSize = Mathf.RoundToInt(14 * UiScale),
             fontStyle = FontStyle.Bold,
             wordWrap = true,
             normal = { textColor = Color.black },

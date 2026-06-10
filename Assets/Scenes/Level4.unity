@@ -6480,6 +6480,91 @@ MonoBehaviour:
   restartButton: {fileID: 840000000000000044}
   mainMenuButton: {fileID: 840000000000000064}
   mainMenuSceneName: MainScene
+  level1Knowledge: 'Level 1: Text Digitization
+
+    A language model cannot read
+    words directly. It first turns text into data.
+
+    Tokenization splits a sentence
+    into smaller units called tokens. A token can be a word, a character, or part
+    of a word. In this level, each word is treated as one token.
+
+    After tokenization,
+    each token is matched with a number from a vocabulary. This number is called
+    a token ID. The sentence then becomes an ordered list of IDs, such as [7421,
+    464, 3152, 1801].
+
+    Token IDs are useful for storage, but they do not carry
+    meaning by themselves. The model therefore converts IDs into embeddings. An embedding
+    is a vector that places a token in a semantic space.
+
+    Tokens with related
+    meanings or roles often appear closer together in this space. This lets the model
+    use math to compare words, find relationships, and prepare the sentence for later
+    neural network layers.'
+  level2Knowledge: 'Level 2: Self-Attention
+
+    Self-attention helps a model decide
+    which words should influence each other.
+
+    For each token, the model compares
+    it with every other token, including itself. A stronger connection means the
+    token should pay more attention to that word when building its meaning.
+
+    In
+    this level, line thickness represents attention strength. Thick lines mean high
+    attention, medium lines mean normal attention, and thin lines mean low attention.
+
+    After
+    the attention strengths are chosen, the values are combined into weights. These
+    raw weights show how much information each token receives from the whole sentence.
+
+    The
+    weights are then normalized, so they become easier to compare and add up in a
+    stable way. Normalization keeps the model from treating large raw numbers as
+    more important only because of scale.'
+  level3Knowledge: 'Level 3: From Words to Meaning
+
+    A model does more than read
+    words one by one. It builds structure from the sentence.
+
+    First, it detects
+    word relations. For example, an adjective connects to the noun it describes,
+    and a verb connects to the object of the action.
+
+    Next, it builds syntax.
+    Words form groups, and those groups explain how the sentence is organized. Nouns,
+    verbs, modifiers, and prepositions each play different roles.
+
+    Then the model
+    connects syntax to meaning. The sentence becomes a scene: who is acting, what
+    object is affected, and where things are located.
+
+    The final layer shows
+    that meaning can transfer to a new sentence. Once the model understands roles
+    such as actor, object, and location, it can apply the same logic to different
+    words and situations.'
+  level4Knowledge: 'Level 4: Feed-Forward Network
+
+    After attention, each token
+    still needs more processing. A feed-forward network, or FFN, refines the information
+    inside each token.
+
+    The FFN expands a token into many features. A feature
+    is a small piece of information, such as whether the token is important, useful,
+    or unrelated to the current context.
+
+    Useful features are kept. Important
+    features are intensified, so they have a stronger effect. Irrelevant features
+    are refrained or removed, so they do not distract the model.
+
+    After filtering,
+    the FFN compresses the useful features back into an output representation. This
+    output token carries clearer information than the original input token.
+
+    In
+    short, attention gathers context, and the FFN cleans and strengthens each token
+    based on that context.'
 --- !u!1 &840000000000000010
 GameObject:
   m_ObjectHideFlags: 0
@@ -7324,6 +7409,52 @@ MonoBehaviour:
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 
+--- !u!1 &840000000000000200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840000000000000201}
+  - component: {fileID: 840000000000000202}
+  m_Layer: 0
+  m_Name: Level4BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &840000000000000201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840000000000000200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840000000000000202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840000000000000200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d68a9f1fb7d4ac4dbf8710c6eec7d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: 72b9479ee7cba4946906f1f331edf7c8, type: 3}
+  volume: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7331,3 +7462,4 @@ SceneRoots:
   - {fileID: 840000000000000001}
   - {fileID: 1496630806}
   - {fileID: 42689255}
+  - {fileID: 840000000000000201}

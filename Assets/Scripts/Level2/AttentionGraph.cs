@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Creates and manages the interactive attention graph with editable edge weights.
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,14 +9,14 @@ public class AttentionGraph : MonoBehaviour
     [Header("Graph Root")]
     public RectTransform lineContainer;
 
-    [Header("Nodes，顺序必须是 Who, Am, I")]
+    [Header("Nodes, order must be Who, Am, I")]
     public RectTransform[] nodeRects;
     public string[] nodeNames = { "Who", "Am", "I" };
 
-    [Header("Path Points，顺序见说明")]
+    [Header("Path Points, see the documented order")]
     public RectTransform[] pathPointRects;
 
-    [Header("Line Style，单位是 UI 像素")]
+    [Header("Line Style, in UI pixels")]
     public float thinWidth = 6f;
     public float mediumWidth = 12f;
     public float thickWidth = 20f;
@@ -39,7 +40,7 @@ public class AttentionGraph : MonoBehaviour
         public List<Image> lineImages = new List<Image>();
         public int from;
         public int to;
-        public int level;       // 0=细, 1=中, 2=粗
+        public int level;       // 0 = thin, 1 = medium, 2 = thick
         public float weight;    // 0.5, 1, 2
         public string displayName;
     }
@@ -73,64 +74,64 @@ public class AttentionGraph : MonoBehaviour
 
         if (lineContainer == null)
         {
-            Debug.LogError("AttentionGraph: lineContainer 没有赋值。");
+            Debug.LogError("AttentionGraph: lineContainer is not assigned.");
             return;
         }
 
         if (nodeRects == null || nodeRects.Length < 3)
         {
-            Debug.LogError("AttentionGraph: nodeRects 必须拖入 3 个节点，顺序是 Who, Am, I。");
+            Debug.LogError("AttentionGraph: nodeRects must contain 3 nodes in the order Who, Am, I.");
             return;
         }
 
         if (pathPointRects == null || pathPointRects.Length < 9)
         {
-            Debug.LogError("AttentionGraph: pathPointRects 必须拖入 9 个透明路径点。");
+            Debug.LogError("AttentionGraph: pathPointRects must contain 9 transparent path points.");
             return;
         }
 
         CreateAllEdges();
 
-        // 为三个中间路径点（曲线经过的点）绑定点击事件
+        // Bind click events to the three intermediate path points used by curved edges.
         BindPathPointButtonsForBetweenEdges();
     }
 
     void CreateAllEdges()
     {
-        // 节点索引：
+        // Node indices:
         // 0 = Who
         // 1 = Am
         // 2 = I
 
-        // 路径点索引：
-        // 0 = Who-Am 中间点
-        // 1 = Am-I 中间点
-        // 2 = I-Who 中间点
-        // 3,4 = Who 自环
-        // 5,6 = Am 自环
-        // 7,8 = I 自环
+        // Path point indices:
+        // 0 = Who-Am intermediate point
+        // 1 = Am-I intermediate point
+        // 2 = I-Who intermediate point
+        // 3,4 = Who self-loop
+        // 5,6 = Am self-loop
+        // 7,8 = I self-loop
 
-        // 自环（3条）
+        // Self-loops.
         CreateLoopEdge(0, pathPointRects[3], pathPointRects[4]);  // Who -> Who
         CreateLoopEdge(1, pathPointRects[5], pathPointRects[6]);  // Am -> Am
         CreateLoopEdge(2, pathPointRects[7], pathPointRects[8]);  // I -> I
 
-        // 双向边：一条曲线（经过中间点），一条直线（直接连接）
+        // Bidirectional edges: one curved line through a midpoint and one direct line.
         // Who <-> Am
-        CreateBetweenEdge(0, 1, pathPointRects[0]);   // Who -> Am 曲线
-        CreateDirectEdge(1, 0);                      // Am -> Who 直线
+        CreateBetweenEdge(0, 1, pathPointRects[0]);   // Who -> Am curved line
+        CreateDirectEdge(1, 0);                      // Am -> Who direct line
 
         // Who <-> I
-        CreateBetweenEdge(0, 2, pathPointRects[2]);   // Who -> I 曲线
-        CreateDirectEdge(2, 0);                      // I -> Who 直线
+        CreateBetweenEdge(0, 2, pathPointRects[2]);   // Who -> I curved line
+        CreateDirectEdge(2, 0);                      // I -> Who direct line
 
         // Am <-> I
-        CreateBetweenEdge(1, 2, pathPointRects[1]);   // Am -> I 曲线
-        CreateDirectEdge(2, 1);                      // I -> Am 直线
+        CreateBetweenEdge(1, 2, pathPointRects[1]);   // Am -> I curved line
+        CreateDirectEdge(2, 1);                      // I -> Am direct line
     }
 
     /// <summary>
-    /// 创建经过中间点的曲线（起点 → 中间点 → 终点）
+    /// Creates a curved edge that passes through an intermediate point.
     /// </summary>
     void CreateBetweenEdge(int from, int to, RectTransform viaPoint)
     {
@@ -141,7 +142,7 @@ public class AttentionGraph : MonoBehaviour
     }
 
     /// <summary>
-    /// 创建直接连接两点的直线（起点 → 终点）
+    /// Creates a direct straight edge between two points.
     /// </summary>
     void CreateDirectEdge(int from, int to)
     {
@@ -188,7 +189,7 @@ public class AttentionGraph : MonoBehaviour
     {
         GameObject obj = new GameObject(lineName, typeof(RectTransform), typeof(Image));
         obj.transform.SetParent(lineContainer, false);
-        obj.transform.SetAsLastSibling();   // 改为放在最上层
+        obj.transform.SetAsLastSibling();   // Draw this line above earlier UI elements.
 
         RectTransform rect = obj.GetComponent<RectTransform>();
         Image img = obj.GetComponent<Image>();
@@ -303,7 +304,7 @@ public class AttentionGraph : MonoBehaviour
     public float[,] GetAttentionWeights()
     {
         float[,] weights = new float[3, 3];
-        // 默认全部中等
+        // Default all weights to medium.
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 weights[i, j] = 1f;
@@ -384,20 +385,20 @@ public class AttentionGraph : MonoBehaviour
     }
 
     /// <summary>
-    /// 为三个中间路径点（0,1,2）添加 Button，点击时选中对应的曲线边
+    /// Adds buttons to the three intermediate path points so clicking them selects the corresponding curved edge.
     /// </summary>
     void BindPathPointButtonsForBetweenEdges()
     {
         if (pathPointRects == null || pathPointRects.Length < 3)
         {
-            Debug.LogWarning("路径点数量不足，无法绑定中间点按钮。");
+            Debug.LogWarning("Not enough path points to bind intermediate point buttons.");
             return;
         }
 
-        // 映射：路径点索引 -> (from, to)
-        // 索引 0 -> Who->Am 曲线 (0->1)
-        // 索引 1 -> Am->I 曲线 (1->2)
-        // 索引 2 -> Who->I 曲线 (0->2)
+        // Mapping: path point index -> (from, to).
+        // Index 0 -> Who->Am curved line (0->1)
+        // Index 1 -> Am->I curved line (1->2)
+        // Index 2 -> Who->I curved line (0->2)
         (int from, int to)[] mappings = new (int, int)[]
         {
             (0, 1),   // Who -> Am
@@ -410,7 +411,7 @@ public class AttentionGraph : MonoBehaviour
             RectTransform point = pathPointRects[i];
             if (point == null) continue;
 
-            // 移除已有的Button（避免重复）
+            // Remove an existing Button to avoid duplicate listeners.
             Button existingBtn = point.GetComponent<Button>();
             if (existingBtn != null)
                 DestroyImmediate(existingBtn);

@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyu Huang, Jiayu Guo; Description: Controls a Level 4 action button with selection glow and click pulse feedback.
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ public class GlowButton : MonoBehaviour
             button = GetComponent<Button>();
         }
 
-        // 启动时先强制恢复基础态，避免场景里残留选中透明度
+        // Reset the base state on startup to avoid stale selected alpha values from the scene.
         SetSelected(false);
     }
 
@@ -72,10 +73,10 @@ public class GlowButton : MonoBehaviour
 
     public void SetSelected(bool selected)
     {
-        // Layer_1：基础底图，永远显示，只是选中时更亮
+        // Layer_1 is the base image. It is always visible and brightens when selected.
         SetImageAlpha(layer1, selected ? selectedAlpha : unselectedAlpha);
 
-        // Layer_2 / Layer_3：选中态光效，未选中时隐藏
+        // Layer_2 and Layer_3 are selection glow effects hidden when unselected.
         SetImageAlpha(layer2, selected ? selectedAlpha : 0f);
         SetImageAlpha(layer3, selected ? selectedAlpha : 0f);
 

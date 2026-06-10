@@ -1,8 +1,9 @@
+// Responsible team member: Zhiyan Lin, Zhiyu Huang; Description: Manages the Level 3 semantic scene layer and validates object placement rules.
 using UnityEngine;
 
 public class Level3Layer3Manager : MonoBehaviour
 {
-    private const float UiScale = 3f;
+    private const float UiScale = 1.8f;
 
     [SerializeField] private Vector2 sceneCenter = new Vector2(0f, 23.85f);
     [SerializeField] private Vector2 sceneHalfSize = new Vector2(4.1f, 1.9f);
@@ -133,8 +134,8 @@ public class Level3Layer3Manager : MonoBehaviour
 
     private void ApplyPresentationLayout()
     {
-        ConfigureLabel("L3_Sentence", new Vector3(0f, 25.95f, 0f), "The careful scientist gently placed the cat under the table.", new Color(1f, 1f, 1f, 0.74f), new Vector2(760f, 58f), 22, true, 1.25f);
-        ConfigureLabel("L3_SemanticWhiteArea", new Vector3(0f, 23.85f, 0f), "", new Color(1f, 1f, 1f, 0.9f), new Vector2(470f, 240f), 12, false, 1.8f);
+        ConfigureLabel("L3_Sentence", new Vector3(0f, 26.15f, 0f), "The careful scientist gently placed the cat under the table.", new Color(1f, 1f, 1f, 0.74f), new Vector2(760f, 58f), 18, true, 1.1f);
+        ConfigureLabel("L3_SemanticWhiteArea", new Vector3(0f, 23.65f, 0f), "", new Color(1f, 1f, 1f, 0.9f), new Vector2(470f, 240f), 12, false, 1.55f);
 
         LayoutPiece("scientist", -4.25f);
         LayoutPiece("cat", -2.12f);
@@ -161,8 +162,8 @@ public class Level3Layer3Manager : MonoBehaviour
         if (piece == null)
             return;
 
-        piece.transform.position = new Vector3(x, 20.1f, 0f);
-        piece.ConfigureInteractionSize(new Vector2(90f, 90f), 2.025f);
+        piece.transform.position = new Vector3(x, 19.95f, 0f);
+        piece.ConfigureInteractionSize(new Vector2(90f, 90f), 1.7f);
         piece.CaptureStartPosition();
 
         Level3SceneLabel sceneLabel = piece.GetComponent<Level3SceneLabel>();
@@ -170,22 +171,4 @@ public class Level3Layer3Manager : MonoBehaviour
             sceneLabel.enabled = false;
     }
 
-    private Color GetPieceColor(string pieceId)
-    {
-        switch (pieceId)
-        {
-            case "scientist":
-                return new Color(0.84f, 0.77f, 0.93f, 1f);
-            case "cat":
-                return new Color(0.98f, 0.82f, 0.58f, 1f);
-            case "dog":
-                return new Color(0.85f, 0.64f, 0.44f, 1f);
-            case "table":
-                return new Color(0.64f, 0.49f, 0.36f, 1f);
-            case "carpet":
-                return new Color(0.59f, 0.82f, 0.88f, 1f);
-            default:
-                return Color.white;
-        }
-    }
 }

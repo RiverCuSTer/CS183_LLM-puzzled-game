@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyu Huang, Jiayu Guo; Description: Represents a Level 4 feature block that can be activated, vanished, dragged, and placed.
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,7 +20,7 @@ public class FeatureBlock : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     public TextMeshProUGUI labelText;
 
     [Header("Display")]
-    public string displayName = "特征";
+    public string displayName = "Feature";
 
     private Level4Manager manager;
 

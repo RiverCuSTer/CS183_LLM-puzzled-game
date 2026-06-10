@@ -1,3 +1,4 @@
+// Responsible team member: Hanyun Zhu, Zhiyu Huang; Description: Shows or hides tray weight objects based on an attention weight count.
 using UnityEngine;
 using TMPro;
 
@@ -82,7 +83,7 @@ public class AttentionTray : MonoBehaviour
 
     int GetDisplayCount(int rawCount)
     {
-        // 直接返回原始数量，不做任何缩放
+        // Return the raw count directly without scaling.
         return Mathf.Max(0, rawCount);
     }
     public void ClearWeights()

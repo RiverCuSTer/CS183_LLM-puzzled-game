@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Switches main UI panels and refreshes level-select lock states.
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Vector2 levelButtonSpacing = new Vector2(920f, 0f);
     [SerializeField] private Vector2 levelButtonSize = new Vector2(840f, 220f);
     [SerializeField] private Vector2 levelSelectContentSize = new Vector2(4200f, 0f);
+    [SerializeField] private Sprite levelLockSprite;
+    [SerializeField] private Vector2 levelLockIconSize = new Vector2(120f, 120f);
+    [SerializeField, Range(0f, 1f)] private float lockedLevelAlpha = 0.5f;
 
     private static readonly string[] LevelButtonLabels = { "LEVEL 1", "LEVEL 2", "LEVEL 3", "LEVEL 4" };
+    private readonly Transform[] levelButtons = new Transform[LevelButtonLabels.Length];
 
     void Awake()
     {
@@ -123,6 +128,8 @@ public class UIManager : MonoBehaviour
                 int levelNumber = i + 1;
                 button.onClick.AddListener(() => GoToLevel(levelNumber));
             }
+
+            levelButtons[i] = buttonObject.transform;
         }
 
         RefreshLevelSelectLocks();
@@ -132,14 +139,14 @@ public class UIManager : MonoBehaviour
     {
         ResolveLevelSelectReferences();
 
-        if (levelButtonContent == null)
+        for (int i = 0; i < LevelButtonLabels.Length; i++)
         {
-            return;
-        }
+            Transform child = levelButtons[i];
+            if (child == null)
+            {
+                continue;
+            }
 
-        for (int i = 0; i < LevelButtonLabels.Length && i < levelButtonContent.childCount; i++)
-        {
-            Transform child = levelButtonContent.GetChild(i);
             bool unlocked = GameManager.IsLevelUnlocked(i + 1);
 
             Button button = child.GetComponent<Button>();
@@ -152,6 +159,16 @@ public class UIManager : MonoBehaviour
             if (text != null)
             {
                 text.text = unlocked ? LevelButtonLabels[i] : LevelButtonLabels[i] + " LOCKED";
+            }
+
+            Image levelImage = child.GetComponent<Image>();
+            SetImageAlpha(levelImage, unlocked ? 1f : lockedLevelAlpha);
+
+            Image lockImage = EnsureLockIcon(child, i + 1);
+            if (lockImage != null)
+            {
+                lockImage.gameObject.SetActive(!unlocked);
+                SetImageAlpha(lockImage, lockedLevelAlpha);
             }
         }
     }
@@ -187,5 +204,73 @@ public class UIManager : MonoBehaviour
             Transform content = levelSelect.transform.Find("Scroll View/Viewport/Content");
             levelButtonContent = content;
         }
+
+        for (int i = 0; i < levelButtons.Length; i++)
+        {
+            if (levelButtons[i] != null)
+            {
+                continue;
+            }
+
+            string buttonName = buildLevelButtonsAtRuntime ? $"LevelSelectButton{i + 1}" : $"TurnToLevel{i + 1}";
+            Transform buttonTransform = null;
+
+            if (levelButtonContent != null)
+            {
+                buttonTransform = levelButtonContent.Find(buttonName);
+            }
+
+            if (buttonTransform == null && levelSelect != null)
+            {
+                buttonTransform = levelSelect.transform.Find(buttonName);
+            }
+
+            levelButtons[i] = buttonTransform;
+        }
+    }
+
+    private Image EnsureLockIcon(Transform levelButton, int levelNumber)
+    {
+        if (levelNumber <= 1 || levelLockSprite == null)
+        {
+            return null;
+        }
+
+        const string lockIconName = "LockIcon";
+        Transform existing = levelButton.Find(lockIconName);
+        Image image = existing != null ? existing.GetComponent<Image>() : null;
+
+        if (image == null)
+        {
+            GameObject lockObject = new GameObject(lockIconName, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+            lockObject.transform.SetParent(levelButton, false);
+            image = lockObject.GetComponent<Image>();
+            image.raycastTarget = false;
+        }
+
+        image.sprite = levelLockSprite;
+        image.preserveAspect = true;
+
+        RectTransform rectTransform = image.rectTransform;
+        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.anchoredPosition = Vector2.zero;
+        rectTransform.sizeDelta = levelLockIconSize;
+        rectTransform.SetAsLastSibling();
+
+        return image;
+    }
+
+    private static void SetImageAlpha(Image image, float alpha)
+    {
+        if (image == null)
+        {
+            return;
+        }
+
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
     }
 }

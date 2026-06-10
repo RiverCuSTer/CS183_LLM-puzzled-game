@@ -1,3 +1,4 @@
+// Responsible team member: Zhaoning Chu; Description: Provides the legacy word dragging behaviour for an older Level 3 slot-based puzzle.
 using UnityEngine;//   25125851  chuzhaoning
 using UnityEngine.EventSystems;
 
@@ -6,19 +7,19 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private RectTransform rect;
     private Transform initialParent;
 
-    // 【核心修复1】改用世界坐标记录初始位置，彻底解决回弹到屏幕中间的问题！
+    // Store the start position in world coordinates to avoid snapping back to the screen center.
     private Vector3 homeWorldPos;
 
     private CanvasGroup canvasGroup;
 
     private bool isSnapped = false;
-    private bool isDragging = false; // 【核心修复2】增加拖拽状态锁，解决停不下来的问题
+    private bool isDragging = false; // Drag-state lock to prevent movement from continuing after release.
 
-    [Header("目标设置")]
+    [Header("Target Settings")]
     public RectTransform mySlot;
 
-    [Header("吸附设置")]
-    [Tooltip("靠近多远自动吸附（屏幕像素）。想要大范围吸附，请改大这个值（如 200~300）")]
+    [Header("Snap Settings")]
+    [Tooltip("Screen-pixel distance for automatic snapping. Increase this value for a larger snap range, such as 200-300.")]
     public float snapDistance = 200f;
 
     void Start()
@@ -26,7 +27,7 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         rect = GetComponent<RectTransform>();
         initialParent = transform.parent;
 
-        // 记录初始的世界坐标（绝对精准，不受父物体布局影响）
+        // Record the initial world position so parent layout changes do not affect reset.
         homeWorldPos = transform.position;
 
         canvasGroup = GetComponent<CanvasGroup>();
@@ -46,14 +47,14 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isSnapped) return;
-        isDragging = true; // 标记开始拖拽
+        isDragging = true; // Mark dragging as started.
         rect.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // 【核心修复2】只要已经吸附，或者不在拖拽状态，绝对不执行移动代码！
+        // Do not move after snapping or when no drag is active.
         if (isSnapped || !isDragging) return;
 
         rect.anchoredPosition += eventData.delta;
@@ -64,7 +65,7 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             Vector2 slotScreenPos = RectTransformUtility.WorldToScreenPoint(cam, mySlot.position);
             float distance = Vector2.Distance(eventData.position, slotScreenPos);
 
-            // 只要进入范围，立刻吸附
+            // Snap immediately once the word enters the slot range.
             if (distance <= snapDistance)
             {
                 SnapToSlot();
@@ -74,7 +75,7 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDragging = false; // 鼠标松开，结束拖拽状态
+        isDragging = false; // End dragging when the pointer is released.
         if (isSnapped) return;
 
         canvasGroup.blocksRaycasts = true;
@@ -84,18 +85,18 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private void SnapToSlot()
     {
         isSnapped = true;
-        isDragging = false; // 立刻强制结束拖拽状态！
+        isDragging = false; // Force the drag state to end immediately.
 
-        // 1. 成为槽的子物体
+        // 1. Parent the word to the slot.
         transform.SetParent(mySlot, false);
-        // 2. 居中（这里用 anchoredPosition 是因为相对于槽，居中就是 0,0）
+        // 2. Center it in the slot.
         rect.anchoredPosition = Vector2.zero;
 
-        // 3. 【关键】彻底关闭交互和脚本，物理级“停下来”！
+        // 3. Disable interaction and this script so the word stays in place.
         canvasGroup.interactable = false;
         this.enabled = false;
 
-        // 4. 通知判定
+        // 4. Notify the slot checker.
         SlotChecker checker = mySlot.GetComponent<SlotChecker>();
         if (checker != null) checker.OnWordDropped(this);
     }
@@ -107,10 +108,10 @@ public class DragWord : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         this.enabled = true;
         canvasGroup.interactable = true;
 
-        // 恢复父物体（true表示保持当前世界位置不变）
+        // Restore the original parent while keeping the current world position.
         transform.SetParent(initialParent, true);
 
-        // 【核心修复1】直接强制恢复世界坐标！指哪打哪，绝对不回屏幕中间！
+        // Force the exact original world position.
         transform.position = homeWorldPos;
 
         canvasGroup.blocksRaycasts = true;

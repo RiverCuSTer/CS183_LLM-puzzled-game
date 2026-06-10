@@ -1,3 +1,4 @@
+// Responsible team member: Zhiyan Lin; Description: Implements draggable semantic scene pieces constrained to their Level 3 layer.
 using UnityEngine;
 
 public class Level3SemanticPiece : MonoBehaviour

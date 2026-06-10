@@ -1,9 +1,10 @@
+// Responsible team member: Zhiyan Lin; Description: Manages the Level 3 syntax stacking layer and validates ordered word columns.
 using UnityEngine;
 using System.Collections.Generic;
 
 public class Level3Layer2Manager : MonoBehaviour
 {
-    private const float UiScale = 3f;
+    private const float UiScale = 1.8f;
     private const float LayerY = 12f;
     private const float ColumnHalfWidth = 0.95f;
     private const float LayerCameraOrthographicSize = 4.75f;
@@ -86,7 +87,7 @@ public class Level3Layer2Manager : MonoBehaviour
         };
 
         GUI.Label(
-            new Rect(Screen.width - 560f, 96f, 520f, 72f),
+            new Rect(Screen.width - 560f, 164f, 520f, 64f),
             $"{filled}/{total} ordered blocks",
             countStyle
         );
@@ -323,7 +324,7 @@ public class Level3Layer2Manager : MonoBehaviour
             if (screen.z < 0f)
                 continue;
 
-            Rect rect = new Rect(screen.x - 145f, Screen.height - screen.y - 36f, 290f, 72f);
+            Rect rect = new Rect(screen.x - 125f, Screen.height - screen.y - 30f, 250f, 60f);
             GUI.Label(rect, column.RoleLabel, roleStyle);
         }
     }
@@ -332,15 +333,25 @@ public class Level3Layer2Manager : MonoBehaviour
     {
         Rect guideRect = GetWorldRectOnScreen(camera, -4.9f, columnTopY, 4.9f, guideAreaTopY);
 
+        GUIStyle titleStyle = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontSize = Mathf.RoundToInt(24 * UiScale),
+            fontStyle = FontStyle.Bold,
+            wordWrap = true,
+            normal = { textColor = Color.black }
+        };
+
         GUIStyle promptStyle = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleCenter,
-            fontSize = Mathf.RoundToInt(16 * UiScale),
-            wordWrap = false,
+            fontSize = Mathf.RoundToInt(15 * UiScale),
+            wordWrap = true,
             normal = { textColor = new Color(0.12f, 0.12f, 0.12f, 1f) }
         };
 
-        GUI.Label(new Rect(Screen.width * 0.5f - 900f, guideRect.y + 132f, 1800f, 96f), Layer2Prompt, promptStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f - 560f, 14f, 1120f, 70f), "Layer 2: Syntax Towers", titleStyle);
+        GUI.Label(new Rect(Screen.width * 0.5f - 560f, 88f, 1120f, 70f), Layer2Prompt, promptStyle);
     }
 
     private Rect GetGuideMessageRect(Camera camera)
